@@ -35,3 +35,8 @@
 - `php bin/console server:run`
 
 ### Go to <http://localhost:8000/api/>
+
+### Update Database
+
+- `php bin/console make:migration`
+- `php bin/console doctrine:migrations:migrate`
