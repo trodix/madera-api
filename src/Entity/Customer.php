@@ -61,13 +61,7 @@ class Customer
      * @ORM\Column(type="string", length=100, nullable=true)
      * @Groups({"read", "write"})
      */
-    private $street;
-
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     * @Groups({"read", "write"})
-     */
-    private $streetNumber;
+    private $address;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
@@ -178,30 +172,6 @@ class Customer
     public function setEmail(?string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getStreet(): ?string
-    {
-        return $this->street;
-    }
-
-    public function setStreet(?string $street): self
-    {
-        $this->street = $street;
-
-        return $this;
-    }
-
-    public function getStreetNumber(): ?string
-    {
-        return $this->streetNumber;
-    }
-
-    public function setStreetNumber(?string $streetNumber): self
-    {
-        $this->streetNumber = $streetNumber;
 
         return $this;
     }
@@ -318,6 +288,18 @@ class Customer
     public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }
