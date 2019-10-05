@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -30,6 +31,15 @@ class Quotation
      * @ORM\Column(type="string")
      * @Assert\Choice(callback="getStateList")
      * @Groups({"read", "write"})
+     * @ApiProperty(
+     *     attributes={
+     *         "openapi_context"={
+     *             "type"="string",
+     *             "enum"={"CANCELED", "WAITING", "VALIDATED"},
+     *             "example"="WAITING"
+     *         }
+     *     }
+     * )
      */
     private $state;
 

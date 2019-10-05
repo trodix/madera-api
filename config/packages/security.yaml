@@ -16,8 +16,8 @@ security:
             security: false
 
         # activate different ways to authenticate
-        login:
-            pattern:  ^/api/login
+        login_check:
+            pattern:  ^/api/login_check
             stateless: true
             anonymous: true
             json_login:
@@ -27,6 +27,21 @@ security:
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
+
+        doc: # To change the swagger_ui path: https://api-platform.com/docs/core/swagger/#changing-the-swagger-ui-location
+            pattern: ^/api$
+            anonymous: true
+
+        # login:
+        #     pattern:   ^/api/login
+        #     stateless: true
+        #     anonymous: true
+
+        # register:
+        #     pattern:  ^/api/register
+        #     stateless: true
+        #     anonymous: true
+
         api:
             pattern:   ^/api
             stateless: true
@@ -34,10 +49,6 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
-        # register:
-        #     pattern:  ^/register
-        #     stateless: true
-        #     anonymous: true
 
         main:
             anonymous: true
@@ -53,7 +64,7 @@ security:
     access_control:
         # - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
 
     role_hierarchy:
         ROLE_ADMIN:       [ROLE_COMMERCIAL]

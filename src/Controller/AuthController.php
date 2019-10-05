@@ -30,5 +30,10 @@ class AuthController extends AbstractController
     //     $em->flush();
     //     return new Response(sprintf('User %s successfully created', $user->getUsername()));
     // }
+
+    // public function login(Request $request)
+    // {
+    //     return $this->render('auth/index.html.twig');
+    // }
     
 }
