@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
@@ -26,13 +30,19 @@ class Project
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=50)
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=50)
+     * @Assert\NotBlank
      * @Groups({"read", "write"})
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=50)
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=50)
+     * @Assert\NotBlank
      * @Groups({"read", "write"})
      */
     private $projectReference;
@@ -41,6 +51,7 @@ class Project
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="Projects")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"read"})
+     * @ApiSubresource(maxDepth=1)
      */
     private $customer;
 
@@ -61,6 +72,18 @@ class Project
      * @Groups({"read"})
      */
     private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Quotation", mappedBy="Project", orphanRemoval=true)
+     * @Groups({"read"})
+     * @ApiSubresource(maxDepth=1)
+     */
+    private $quotations;
+
+    public function __construct()
+    {
+        $this->quotations = new ArrayCollection();
+    }
 
 
 
@@ -150,6 +173,37 @@ class Project
     public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Quotation[]
+     */
+    public function getQuotations(): Collection
+    {
+        return $this->quotations;
+    }
+
+    public function addQuotation(Quotation $quotation): self
+    {
+        if (!$this->quotations->contains($quotation)) {
+            $this->quotations[] = $quotation;
+            $quotation->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuotation(Quotation $quotation): self
+    {
+        if ($this->quotations->contains($quotation)) {
+            $this->quotations->removeElement($quotation);
+            // set the owning side to null (unless already changed)
+            if ($quotation->getProject() === $this) {
+                $quotation->setProject(null);
+            }
+        }
 
         return $this;
     }
