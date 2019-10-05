@@ -10,7 +10,7 @@ class LoginTest extends WebTestCase
     public function testLogin(){
 
         $client = static::createClient();
-        $client->request('POST', '/api/admin/login_check', [], [],
+        $client->request('POST', '/api/login_check', [], [],
             [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json'
