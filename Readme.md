@@ -34,9 +34,20 @@
 
 - `php bin/console server:run`
 
-### Go to <http://localhost:8000/api/>
 
 ### Update Database
 
 - `php bin/console make:migration`
 - `php bin/console doctrine:migrations:migrate`
+
+### Load fixtures
+
+- `php bin/console doctrine:fixtures:load` This will create new users
+
+Default admin user: username: `admin@madera.com`, password: `madera2019`
+
+### Go to <http://localhost:8000/api/>
+
+## Next step
+
+### [See how to send authenticated request to the api](Documentation/Api.md)
