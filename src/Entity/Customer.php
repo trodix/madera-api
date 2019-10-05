@@ -6,9 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -29,54 +30,75 @@ class Customer
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=50)
+     * @Assert\NotBlank
      * @Groups({"read", "write"})
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=50)
+     * @Assert\NotBlank
      * @Groups({"read", "write"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=50)
+     * @Assert\NotBlank
      * @Groups({"read", "write"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=15)
      * @Groups({"read", "write"})
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=128)
      * @Groups({"read", "write"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=100)
      * @Groups({"read", "write"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=10)
      * @Groups({"read", "write"})
      */
     private $zipcode;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=50)
      * @Groups({"read", "write"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=50)
      * @Groups({"read", "write"})
      */
     private $country;
@@ -84,6 +106,7 @@ class Customer
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="customer")
      * @Groups({"read"})
+     * @ApiSubresource(maxDepth=1)
      */
     private $Projects;
 
