@@ -29,7 +29,7 @@ security:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
         doc: # To change the swagger_ui path: https://api-platform.com/docs/core/swagger/#changing-the-swagger-ui-location
-            pattern: ^/api$
+            pattern: ^/api/?$
             anonymous: true
 
         # login:
@@ -41,6 +41,11 @@ security:
         #     pattern:  ^/api/register
         #     stateless: true
         #     anonymous: true
+
+        refresh:
+            pattern: ^/api/token/refresh
+            stateless: true
+            anonymous: true
 
         api:
             pattern:   ^/api
@@ -64,6 +69,7 @@ security:
     access_control:
         # - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
 
     role_hierarchy:
