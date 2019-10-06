@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
  * @ApiResource(
- *      normalizationContext={"groups"={"read"}},
+ *      normalizationContext={"groups"={"project"}},
  *      denormalizationContext={"groups"={"write"}}
  * )
  */
@@ -34,7 +34,7 @@ class Project
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"read", "write"})
+     * @Groups({"project", "customer", "quotation", "write"})
      */
     private $name;
 
@@ -43,15 +43,15 @@ class Project
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"read", "write"})
+     * @Groups({"project", "customer", "quotation", "write"})
      */
     private $projectReference;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="Projects")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"read"})
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"project", "quotation"})
+     * @ApiSubresource
      */
     private $customer;
 
@@ -60,7 +60,7 @@ class Project
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @Groups({"read"})
+     * @Groups({"project", "customer", "quotation"})
      */
     private $createdAt;
 
@@ -69,14 +69,14 @@ class Project
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
-     * @Groups({"read"})
+     * @Groups({"project", "customer", "quotation"})
      */
     private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Quotation", mappedBy="Project", orphanRemoval=true)
-     * @Groups({"read"})
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"project", "customer"})
+     * @ApiSubresource
      */
     private $quotations;
 

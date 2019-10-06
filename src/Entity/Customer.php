@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *      normalizationContext={"groups"={"read"}},
+ *      normalizationContext={"groups"={"customer"}},
  *      denormalizationContext={"groups"={"write"}}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\CustomerRepository")
@@ -33,7 +33,7 @@ class Customer
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"read", "write"})
+     * @Groups({"project", "customer", "quotation", "write"})
      */
     private $reference;
 
@@ -42,7 +42,7 @@ class Customer
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"read", "write"})
+     * @Groups({"project", "customer", "quotation", "write"})
      */
     private $lastname;
 
@@ -51,7 +51,7 @@ class Customer
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"read", "write"})
+     * @Groups({"project", "customer", "quotation", "write"})
      */
     private $firstname;
 
@@ -59,7 +59,7 @@ class Customer
      * @ORM\Column(type="string", length=15, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=15)
-     * @Groups({"read", "write"})
+     * @Groups({"project", "customer", "quotation", "write"})
      */
     private $phone;
 
@@ -67,7 +67,7 @@ class Customer
      * @ORM\Column(type="string", length=128, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=128)
-     * @Groups({"read", "write"})
+     * @Groups({"project", "customer", "quotation", "write"})
      */
     private $email;
 
@@ -75,7 +75,7 @@ class Customer
      * @ORM\Column(type="string", length=100, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=100)
-     * @Groups({"read", "write"})
+     * @Groups({"project", "customer", "quotation", "write"})
      */
     private $address;
 
@@ -83,7 +83,7 @@ class Customer
      * @ORM\Column(type="string", length=10, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=10)
-     * @Groups({"read", "write"})
+     * @Groups({"project", "customer", "quotation", "write"})
      */
     private $zipcode;
 
@@ -91,7 +91,7 @@ class Customer
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
-     * @Groups({"read", "write"})
+     * @Groups({"project", "customer", "quotation", "write"})
      */
     private $city;
 
@@ -99,14 +99,14 @@ class Customer
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
-     * @Groups({"read", "write"})
+     * @Groups({"project", "customer", "quotation", "write"})
      */
     private $country;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="customer")
-     * @Groups({"read"})
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"customer", "quotation"})
+     * @ApiSubresource
      */
     private $Projects;
 
@@ -115,7 +115,7 @@ class Customer
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @Groups({"read"})
+     * @Groups({"project", "customer", "quotation"})
      */
     private $createdAt;
 
@@ -124,7 +124,7 @@ class Customer
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
-     * @Groups({"read"})
+     * @Groups({"project", "customer", "quotation"})
      */
     private $updatedAt;
 
