@@ -12,7 +12,7 @@
 
 ## Authentication
 
-**Get a new JWT token**
+### **Get a new JWT token**
 
 [Anonnymous] **POST**|**GET** `/api/login_check`
 
@@ -34,7 +34,7 @@
 }
 ```
 
-**Refresh a token**
+### **Refresh a token**
 
 [Authenticated] **POST**|**GET** `/api/token/refresh`
 
@@ -57,7 +57,7 @@
 
 ## Send an authenticated request
 
-1. Get a JWT token at `/api/login_check` with POST method
+1. Get a JWT token at `/api/login_check` with your credentials
 2. Set the **Autorization** header with: `Bearer YOUR_TOKEN`
 3. Request the ressource that you want at `/api/**`
 
@@ -70,4 +70,5 @@
 ## Refresh the token
 
 If your token has expired, you will not be able to send a authenticated request to the API.
-In order to refresh your token, you must refresh your token or request a new one.
+
+In order to refresh your token, send a request to `/api/token/refresh` or request a new one at `/api/login_check`.

@@ -8,7 +8,10 @@
 
 [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle)
 
+[JWTRefreshTokenBundle](https://github.com/markitosgv/JWTRefreshTokenBundle)
+
 [NelmioCorsBundle](https://github.com/nelmio/NelmioCorsBundle)
+
 
 ## Getting started
 
