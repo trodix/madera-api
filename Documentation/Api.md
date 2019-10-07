@@ -20,8 +20,8 @@
 
 ```json
 {
-  "_username": "YOUR_USERNAME",
-  "_password": "YOUR_PASSWORD"
+  "username": "YOUR_USERNAME",
+  "password": "YOUR_PASSWORD"
 }
 ```
 
