@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\QuotationRepository")
  * @ApiResource(
- *      normalizationContext={"groups"={"read"}},
+ *      normalizationContext={"groups"={"quotation"}},
  *      denormalizationContext={"groups"={"write"}}
  * )
  */
@@ -23,14 +23,13 @@ class Quotation
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\Choice(callback="getStateList")
-     * @Groups({"read", "write"})
+     * @Groups({"quotation", "user", "project", "customer", "write"})
      * @ApiProperty(
      *     attributes={
      *         "openapi_context"={
@@ -48,7 +47,7 @@ class Quotation
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @Groups({"read"})
+     * @Groups({"quotation", "user", "customer", "project"})
      */
     private $createdAt;
 
@@ -57,14 +56,14 @@ class Quotation
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
-     * @Groups({"read"})
+     * @Groups({"quotation", "user", "customer", "project"})
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="quotations")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"read"})
+     * @Groups({"quotation", "user"})
      * @ApiSubresource(maxDepth=1)
      */
     private $Project;

@@ -34,7 +34,7 @@ class Project
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"project", "customer", "quotation", "write"})
+     * @Groups({"project", "customer", "quotation", "user", "write"})
      */
     private $name;
 
@@ -43,7 +43,7 @@ class Project
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"project", "customer", "quotation", "write"})
+     * @Groups({"project", "customer", "quotation", "user", "write"})
      */
     private $projectReference;
 
@@ -60,7 +60,7 @@ class Project
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @Groups({"project", "customer", "quotation"})
+     * @Groups({"project", "customer", "user", "quotation"})
      */
     private $createdAt;
 
@@ -69,16 +69,22 @@ class Project
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
-     * @Groups({"project", "customer", "quotation"})
+     * @Groups({"project", "customer", "user", "quotation"})
      */
     private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Quotation", mappedBy="Project", orphanRemoval=true)
-     * @Groups({"project", "customer"})
+     * @Groups({"project"})
      * @ApiSubresource
      */
     private $quotations;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projects")
+     * @Groups({"project"})
+     */
+    private $user;
 
     public function __construct()
     {
@@ -204,6 +210,18 @@ class Project
                 $quotation->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
