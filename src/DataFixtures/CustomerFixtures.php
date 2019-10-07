@@ -26,7 +26,7 @@ class CustomerFixtures extends Fixture
             ->setCity("Dijon")
             ->setCountry("France")
             ->setZipcode("21000")
-            ->addProject($this->getReference(ProjectFixtures::PROJECT_1_REFERENCE))
+            // ->addProject($this->getReference(ProjectFixtures::PROJECT_1_REFERENCE))
         ;
         $manager->persist($customer);
         $manager->flush();

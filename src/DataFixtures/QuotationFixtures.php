@@ -3,10 +3,12 @@
 namespace App\DataFixtures;
 
 use App\Entity\Quotation;
+use App\DataFixtures\ProjectFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class QuotationFixtures extends Fixture
+class QuotationFixtures extends Fixture implements DependentFixtureInterface
 {
     public const QUOTATION_1_REFERENCE = 'quotation-1';
 
@@ -16,12 +18,19 @@ class QuotationFixtures extends Fixture
         // $manager->persist($product);
         $quotation = new Quotation();
         $quotation
-            ->state("WAITING")
-            ->setProject($this->getReference(ProjetFixtures::PROJECT_1_REFERENCE))
+            ->setState("WAITING")
+            ->setProject($this->getReference(ProjectFixtures::PROJECT_1_REFERENCE))
         ;
         
         $manager->persist($quotation);
         $manager->flush();
         $this->addReference(self::QUOTATION_1_REFERENCE, $quotation);
+    }
+
+    public function getDependencies()
+    {
+        return [
+            ProjectFixtures::class
+        ];
     }
 }
