@@ -45,7 +45,7 @@ class Project
      * @Assert\NotBlank
      * @Groups({"project", "customer", "quotation", "user", "write"})
      */
-    private $projectReference;
+    private $reference;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="Projects")
@@ -87,8 +87,9 @@ class Project
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="project")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="projects")
      * @Groups({"project"})
+     * @ApiSubresource
      */
     private $products;
 
@@ -117,14 +118,14 @@ class Project
         return $this;
     }
 
-    public function getProjectReference(): ?string
+    public function getReference(): ?string
     {
-        return $this->projectReference;
+        return $this->reference;
     }
 
-    public function setProjectReference(string $projectReference): self
+    public function setReference(string $reference): self
     {
-        $this->projectReference = $projectReference;
+        $this->reference = $reference;
 
         return $this;
     }

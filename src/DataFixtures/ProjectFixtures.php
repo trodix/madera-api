@@ -21,7 +21,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $project = new Project();
         $project
             ->setName("DSK")
-            ->setProjectReference("H000001")
+            ->setreference("H000001")
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
             // ->addQuotation($this->getReference(QuotationFixtures::QUOTATION_1_REFERENCE))
         ;

@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -27,12 +29,16 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=20)
+     * Assert\Type(type="string")
+     * @Assert\Length(max=20)
      * @Groups({"product", "project"})
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=50)
      * @Groups({"product", "project", "write"})
      */
     private $name;
@@ -40,7 +46,7 @@ class Product
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Project", inversedBy="products")
      */
-    private $project;
+    private $projects;
 
     public function __construct()
     {
@@ -79,15 +85,15 @@ class Product
     /**
      * @return Collection|Project[]
      */
-    public function getProject(): Collection
+    public function getProjects(): Collection
     {
-        return $this->project;
+        return $this->projects;
     }
 
     public function addProject(Project $project): self
     {
-        if (!$this->project->contains($project)) {
-            $this->project[] = $project;
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
         }
 
         return $this;
@@ -95,8 +101,8 @@ class Product
 
     public function removeProject(Project $project): self
     {
-        if ($this->project->contains($project)) {
-            $this->project->removeElement($project);
+        if ($this->projects->contains($project)) {
+            $this->projects->removeElement($project);
         }
 
         return $this;
