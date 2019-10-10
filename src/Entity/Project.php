@@ -86,9 +86,16 @@ class Project
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="project")
+     * @Groups({"project"})
+     */
+    private $products;
+
     public function __construct()
     {
         $this->quotations = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
 
@@ -222,6 +229,34 @@ class Project
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            $product->removeProject($this);
+        }
 
         return $this;
     }
