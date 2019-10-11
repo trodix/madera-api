@@ -3,38 +3,68 @@
 namespace App\DataFixtures;
 
 use App\Entity\Project;
+use App\DataFixtures\ProductFixtures;
 use App\DataFixtures\CustomerFixtures;
-use App\DataFixtures\QuotationFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class ProjectFixtures extends Fixture implements DependentFixtureInterface
 {
 
     public const PROJECT_1_REFERENCE = 'project-1';
+    public const PROJECT_2_REFERENCE = 'project-2';
+    public const PROJECT_3_REFERENCE = 'project-3';
 
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
         $project = new Project();
         $project
-            ->setName("DSK")
-            ->setreference("H000001")
+            ->setName("Cabane normande")
+            ->setReference("H000001")
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
-            // ->addQuotation($this->getReference(QuotationFixtures::QUOTATION_1_REFERENCE))
+            ->addProduct($this->getReference(ProductFixtures::PRODUCT_1_REFERENCE))
         ;
+
         $manager->persist($project);
-        $manager->flush();
         $this->addReference(self::PROJECT_1_REFERENCE, $project);
+
+
+        $project = new Project();
+        $project
+            ->setName("Bureaux boisés de campagne")
+            ->setReference("H000002")
+            ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
+            ->addProduct($this->getReference(ProductFixtures::PRODUCT_2_REFERENCE))
+        ;
+        
+        $manager->persist($project);
+        $this->addReference(self::PROJECT_2_REFERENCE, $project);
+
+
+        $project = new Project();
+        $project
+            ->setName("Le domaine de Hagrid")
+            ->setReference("H000003")
+            ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
+            ->addProduct($this->getReference(ProductFixtures::PRODUCT_3_REFERENCE))
+            ->addProduct($this->getReference(ProductFixtures::PRODUCT_2_REFERENCE))
+        ;
+        
+        $manager->persist($project);
+        $this->addReference(self::PROJECT_3_REFERENCE, $project);
+
+
+
+        //////////////////////////////////////////////
+        $manager->flush();
     }
 
     public function getDependencies()
     {
         return [
             CustomerFixtures::class,
-            // QuotationFixtures::class
+            ProductFixtures::class
         ];
     }
 }
