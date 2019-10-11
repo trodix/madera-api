@@ -34,7 +34,7 @@ class Customer
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"project", "customer", "quotation", "write"})
+     * @Groups({"project", "customer", "quotation"})
      */
     private $reference;
 
@@ -108,7 +108,7 @@ class Customer
      * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="customer")
      * @ApiSubresource(maxDepth=1)
      */
-    private $Projects;
+    private $projects;
 
     /**
      * @var \DateTime $created
@@ -130,7 +130,8 @@ class Customer
 
     public function __construct()
     {
-        $this->Projects = new ArrayCollection();
+        $this->projects = new ArrayCollection();
+        $this->reference = strtoupper(uniqid("cu-"));
     }
 
 

@@ -15,7 +15,7 @@ class CustomerFixtures extends Fixture
     {
         $customer = new Customer();
         $customer
-            ->setReference("C000001")
+            // ->setReference("C000001") // Auto-generated bu uniqid
             ->setLastName("Dupont")
             ->setFirstName("Francis")
             ->setPhone("0669696969")
@@ -33,7 +33,7 @@ class CustomerFixtures extends Fixture
 
         $customer = new Customer();
         $customer
-            ->setReference("C000002")
+            // ->setReference("C000002") // Auto-generated bu uniqid
             ->setLastName("Molotov")
             ->setFirstName("Dimitri")
             ->setPhone("0645253296")

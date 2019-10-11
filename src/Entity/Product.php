@@ -53,6 +53,7 @@ class Product
     public function __construct()
     {
         $this->project = new ArrayCollection();
+        $this->reference = strtoupper(uniqid("pd-"));
     }
 
     public function getId(): ?int

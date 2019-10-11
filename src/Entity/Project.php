@@ -44,7 +44,7 @@ class Project
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"project", "customer", "quotation", "user", "write"})
+     * @Groups({"project", "customer", "quotation", "user"})
      */
     private $reference;
 
@@ -98,6 +98,7 @@ class Project
     {
         $this->quotations = new ArrayCollection();
         $this->products = new ArrayCollection();
+        $this->reference = strtoupper(uniqid("pr-"));
     }
 
 

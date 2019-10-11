@@ -17,7 +17,7 @@ class ProductFixtures extends Fixture
     {
         $product = new Product();
         $product
-            ->setReference("P20190601")
+            // ->setReference("P20190601") // Auto-generated bu uniqid
             ->setName("Vinteau")
         ;
 
@@ -28,7 +28,7 @@ class ProductFixtures extends Fixture
 
         $product = new Product();
         $product
-            ->setReference("P20190806")
+            // ->setReference("P20190806") // Auto-generated bu uniqid
             ->setName("Chatelet")
         ;
 
@@ -39,7 +39,7 @@ class ProductFixtures extends Fixture
 
         $product = new Product();
         $product
-            ->setReference("P20191002")
+            // ->setReference("P20191002") // Auto-generated bu uniqid
             ->setName("Poudlard")
         ;
 

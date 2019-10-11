@@ -21,7 +21,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $project = new Project();
         $project
             ->setName("Cabane normande")
-            ->setReference("H000001")
+            // ->setReference("H000001") // Auto-generated bu uniqid
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
             ->addProduct($this->getReference(ProductFixtures::PRODUCT_1_REFERENCE))
         ;
@@ -33,7 +33,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $project = new Project();
         $project
             ->setName("Bureaux boisés de campagne")
-            ->setReference("H000002")
+            // ->setReference("H000002") // Auto-generated bu uniqid
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
             ->addProduct($this->getReference(ProductFixtures::PRODUCT_2_REFERENCE))
         ;
@@ -45,7 +45,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $project = new Project();
         $project
             ->setName("Le domaine de Hagrid")
-            ->setReference("H000003")
+            // ->setReference("H000003") // Auto-generated bu uniqid
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
             ->addProduct($this->getReference(ProductFixtures::PRODUCT_3_REFERENCE))
             ->addProduct($this->getReference(ProductFixtures::PRODUCT_2_REFERENCE))
