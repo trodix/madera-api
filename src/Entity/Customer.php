@@ -241,13 +241,13 @@ class Customer
      */
     public function getProjects(): array
     {
-        return $this->Projects->getValues();
+        return $this->projects->getValues();
     }
 
     public function addProject(Project $project): self
     {
-        if (!$this->Projects->contains($project)) {
-            $this->Projects[] = $project;
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
             $project->setCustomer($this);
         }
 
@@ -256,8 +256,8 @@ class Customer
 
     public function removeProject(Project $project): self
     {
-        if ($this->Projects->contains($project)) {
-            $this->Projects->removeElement($project);
+        if ($this->projects->contains($project)) {
+            $this->projects->removeElement($project);
             // set the owning side to null (unless already changed)
             if ($project->getCustomer() === $this) {
                 $project->setCustomer(null);
