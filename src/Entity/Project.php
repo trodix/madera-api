@@ -26,6 +26,7 @@ class Project
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"project", "customer", "quotation", "user"})
      */
     private $id;
 
@@ -43,15 +44,15 @@ class Project
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"project", "customer", "quotation", "user", "write"})
+     * @Groups({"project", "customer", "quotation", "user"})
      */
-    private $projectReference;
+    private $reference;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="Projects")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"project", "quotation"})
-     * @ApiSubresource
+     * @ApiSubresource(maxDepth=1)
      */
     private $customer;
 
@@ -76,7 +77,7 @@ class Project
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Quotation", mappedBy="Project", orphanRemoval=true)
      * @Groups({"project"})
-     * @ApiSubresource
+     * @ApiSubresource(maxDepth=1)
      */
     private $quotations;
 
@@ -86,9 +87,18 @@ class Project
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="projects")
+     * @Groups({"project"})
+     * @ApiSubresource(maxDepth=1)
+     */
+    private $products;
+
     public function __construct()
     {
         $this->quotations = new ArrayCollection();
+        $this->products = new ArrayCollection();
+        $this->reference = strtoupper(uniqid("pr-"));
     }
 
 
@@ -110,14 +120,14 @@ class Project
         return $this;
     }
 
-    public function getProjectReference(): ?string
+    public function getReference(): ?string
     {
-        return $this->projectReference;
+        return $this->reference;
     }
 
-    public function setProjectReference(string $projectReference): self
+    public function setReference(string $reference): self
     {
-        $this->projectReference = $projectReference;
+        $this->reference = $reference;
 
         return $this;
     }
@@ -222,6 +232,34 @@ class Project
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            $product->removeProject($this);
+        }
 
         return $this;
     }

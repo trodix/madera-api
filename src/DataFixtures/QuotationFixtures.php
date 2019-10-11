@@ -14,8 +14,6 @@ class QuotationFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
         $quotation = new Quotation();
         $quotation
             ->setState("WAITING")
