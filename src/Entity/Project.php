@@ -26,6 +26,7 @@ class Project
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"project", "customer", "quotation", "user"})
      */
     private $id;
 
@@ -51,7 +52,7 @@ class Project
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="Projects")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"project", "quotation"})
-     * @ApiSubresource
+     * @ApiSubresource(maxDepth=1)
      */
     private $customer;
 
@@ -76,7 +77,7 @@ class Project
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Quotation", mappedBy="Project", orphanRemoval=true)
      * @Groups({"project"})
-     * @ApiSubresource
+     * @ApiSubresource(maxDepth=1)
      */
     private $quotations;
 
@@ -89,7 +90,7 @@ class Project
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="projects")
      * @Groups({"project"})
-     * @ApiSubresource
+     * @ApiSubresource(maxDepth=1)
      */
     private $products;
 

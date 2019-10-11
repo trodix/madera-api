@@ -23,6 +23,7 @@ class Quotation
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"quotation", "user", "project", "customer"})
      */
     private $id;
 
@@ -63,7 +64,6 @@ class Quotation
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="quotations")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"quotation", "user"})
      * @ApiSubresource(maxDepth=1)
      */
     private $Project;

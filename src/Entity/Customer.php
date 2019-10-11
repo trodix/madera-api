@@ -25,6 +25,7 @@ class Customer
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"project", "customer", "quotation"})
      */
     private $id;
 
@@ -105,8 +106,7 @@ class Customer
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="customer")
-     * @Groups({"customer"})
-     * @ApiSubresource
+     * @ApiSubresource(maxDepth=1)
      */
     private $Projects;
 
