@@ -49,7 +49,7 @@ class Project
     private $reference;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="Projects")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"project", "quotation"})
      * @ApiSubresource(maxDepth=1)
