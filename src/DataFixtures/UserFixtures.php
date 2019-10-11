@@ -31,7 +31,7 @@ class UserFixtures extends Fixture
         // });
 
         /**
-         * Create an SUPER_ADMIN user
+         * Create a SUPER_ADMIN user
          */
         $user = new User();
         $user
