@@ -51,8 +51,7 @@ class Project
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"project", "quotation"})
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"project", "user", "quotation"})
      */
     private $customer;
 
@@ -75,22 +74,20 @@ class Project
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Quotation", mappedBy="Project", orphanRemoval=true)
-     * @Groups({"project"})
-     * @ApiSubresource(maxDepth=1)
+     * @ORM\OneToMany(targetEntity="App\Entity\Quotation", mappedBy="project", orphanRemoval=true)
+     * @Groups({"project", "user", "customer"})
      */
     private $quotations;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projects")
-     * @Groups({"project"})
+     * @Groups({"project", "customer", "quotation"})
      */
     private $user;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="projects")
-     * @Groups({"project"})
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"project", "customer", "user", "quotation"})
      */
     private $products;
 

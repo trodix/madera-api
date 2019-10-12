@@ -64,9 +64,9 @@ class Quotation
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="quotations")
      * @ORM\JoinColumn(nullable=false)
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"quotation"})
      */
-    private $Project;
+    private $project;
 
     /**
      * @return array
@@ -123,12 +123,12 @@ class Quotation
 
     public function getProject(): ?Project
     {
-        return $this->Project;
+        return $this->project;
     }
 
-    public function setProject(?Project $Project): self
+    public function setProject(?Project $project): self
     {
-        $this->Project = $Project;
+        $this->project = $project;
 
         return $this;
     }

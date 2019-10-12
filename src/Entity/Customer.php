@@ -106,7 +106,7 @@ class Customer
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="customer")
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"customer"})
      */
     private $projects;
 
