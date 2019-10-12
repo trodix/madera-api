@@ -76,6 +76,7 @@ class Project
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Quotation", mappedBy="project", orphanRemoval=true)
      * @Groups({"project", "user", "customer"})
+     * @ApiSubresource
      */
     private $quotations;
 
@@ -88,6 +89,7 @@ class Project
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="projects")
      * @Groups({"project", "customer", "user", "quotation"})
+     * @ApiSubresource
      */
     private $products;
 

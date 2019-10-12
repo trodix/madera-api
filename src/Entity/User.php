@@ -26,13 +26,13 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user", "project"})
+     * @Groups({"user", "project", "quotation", "customer"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user", "project", "write"})
+     * @Groups({"user", "project", "quotation", "customer", "write"})
      */
     private $email;
 
@@ -50,19 +50,20 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
-     * @Groups({"user", "project", "write"})
+     * @Groups({"user", "project", "quotation", "customer", "write"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
-     * @Groups({"user", "project", "write"})
+     * @Groups({"user", "project", "quotation", "customer", "write"})
      */
     private $firstname;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="user")
      * @Groups({"user"})
+     * @ApiSubresource
      */
     private $projects;
 

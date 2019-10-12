@@ -24,7 +24,7 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"product", "project", "user", "quotation"})
+     * @Groups({"product", "project", "user", "quotation", "customer"})
      */
     private $id;
 
@@ -32,7 +32,7 @@ class Product
      * @ORM\Column(type="string", length=20)
      * @Assert\Type(type="string")
      * @Assert\Length(max=20)
-     * @Groups({"product", "project", "user", "quotation"})
+     * @Groups({"product", "project", "user", "quotation", "customer"})
      */
     private $reference;
 
@@ -40,7 +40,7 @@ class Product
      * @ORM\Column(type="string", length=50)
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
-     * @Groups({"product", "project", "user", "quotation", "write"})
+     * @Groups({"product", "project", "user", "quotation", "customer", "write"})
      */
     private $name;
 
