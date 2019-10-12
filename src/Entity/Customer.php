@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ApiResource(
  *      normalizationContext={"groups"={"customer"}},
- *      denormalizationContext={"groups"={"write"}}
+ *      denormalizationContext={"groups"={"customer:input"}}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\CustomerRepository")
  */
@@ -43,7 +43,7 @@ class Customer
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"project", "customer", "quotation", "write"})
+     * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $lastname;
 
@@ -52,7 +52,7 @@ class Customer
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"project", "customer", "quotation", "write"})
+     * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $firstname;
 
@@ -60,7 +60,7 @@ class Customer
      * @ORM\Column(type="string", length=15, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=15)
-     * @Groups({"project", "customer", "quotation", "write"})
+     * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $phone;
 
@@ -68,7 +68,7 @@ class Customer
      * @ORM\Column(type="string", length=128, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=128)
-     * @Groups({"project", "customer", "quotation", "write"})
+     * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $email;
 
@@ -76,7 +76,7 @@ class Customer
      * @ORM\Column(type="string", length=100, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=100)
-     * @Groups({"project", "customer", "quotation", "write"})
+     * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $address;
 
@@ -84,7 +84,7 @@ class Customer
      * @ORM\Column(type="string", length=10, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=10)
-     * @Groups({"project", "customer", "quotation", "write"})
+     * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $zipcode;
 
@@ -92,7 +92,7 @@ class Customer
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
-     * @Groups({"project", "customer", "quotation", "write"})
+     * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $city;
 
@@ -100,13 +100,14 @@ class Customer
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
-     * @Groups({"project", "customer", "quotation", "write"})
+     * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $country;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="customer")
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"customer", "customer:input"})
+     * @ApiSubresource
      */
     private $projects;
 

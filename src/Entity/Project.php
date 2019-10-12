@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
  * @ApiResource(
  *      normalizationContext={"groups"={"project"}},
- *      denormalizationContext={"groups"={"write"}}
+ *      denormalizationContext={"groups"={"project:input"}}
  * )
  */
 
@@ -35,7 +35,7 @@ class Project
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"project", "customer", "quotation", "user", "write"})
+     * @Groups({"project", "customer", "quotation", "user", "project:input"})
      */
     private $name;
 
@@ -51,8 +51,7 @@ class Project
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"project", "quotation"})
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"project", "user", "quotation"})
      */
     private $customer;
 
@@ -75,22 +74,22 @@ class Project
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Quotation", mappedBy="Project", orphanRemoval=true)
-     * @Groups({"project"})
-     * @ApiSubresource(maxDepth=1)
+     * @ORM\OneToMany(targetEntity="App\Entity\Quotation", mappedBy="project", orphanRemoval=true)
+     * @Groups({"project", "user", "customer", "project:input"})
+     * @ApiSubresource
      */
     private $quotations;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projects")
-     * @Groups({"project"})
+     * @Groups({"project", "customer", "quotation", "project:input"})
      */
     private $user;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="projects")
-     * @Groups({"project"})
-     * @ApiSubresource(maxDepth=1)
+     * @Groups({"project", "customer", "user", "quotation", "project:input"})
+     * @ApiSubresource
      */
     private $products;
 

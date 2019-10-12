@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Project;
+use App\DataFixtures\UserFixtures;
 use App\DataFixtures\ProductFixtures;
 use App\DataFixtures\CustomerFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -24,6 +25,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             // ->setReference("H000001") // Auto-generated bu uniqid
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
             ->addProduct($this->getReference(ProductFixtures::PRODUCT_1_REFERENCE))
+            ->setUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
         ;
 
         $manager->persist($project);
@@ -36,6 +38,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             // ->setReference("H000002") // Auto-generated bu uniqid
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
             ->addProduct($this->getReference(ProductFixtures::PRODUCT_2_REFERENCE))
+            ->setUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
         ;
         
         $manager->persist($project);
@@ -46,9 +49,10 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $project
             ->setName("Le domaine de Hagrid")
             // ->setReference("H000003") // Auto-generated bu uniqid
-            ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
+            ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_2_REFERENCE))
             ->addProduct($this->getReference(ProductFixtures::PRODUCT_3_REFERENCE))
             ->addProduct($this->getReference(ProductFixtures::PRODUCT_2_REFERENCE))
+            ->setUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
         ;
         
         $manager->persist($project);
@@ -64,7 +68,8 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CustomerFixtures::class,
-            ProductFixtures::class
+            ProductFixtures::class,
+            UserFixtures::class
         ];
     }
 }
