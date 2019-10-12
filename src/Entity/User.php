@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ApiResource(
  *      normalizationContext={"groups"={"user"}},
- *      denormalizationContext={"groups"={"write"}}
+ *      denormalizationContext={"groups"={"user:input"}}
  * )
  */
 class User implements UserInterface
@@ -32,13 +32,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user", "project", "quotation", "customer", "write"})
+     * @Groups({"user", "project", "quotation", "customer", "user:input"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"user", "write"})
+     * @Groups({"user", "user:input"})
      */
     private $roles = [];
 
@@ -50,13 +50,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
-     * @Groups({"user", "project", "quotation", "customer", "write"})
+     * @Groups({"user", "project", "quotation", "customer", "user:input"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
-     * @Groups({"user", "project", "quotation", "customer", "write"})
+     * @Groups({"user", "project", "quotation", "customer", "user:input"})
      */
     private $firstname;
 

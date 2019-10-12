@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\QuotationRepository")
  * @ApiResource(
  *      normalizationContext={"groups"={"quotation"}},
- *      denormalizationContext={"groups"={"write"}}
+ *      denormalizationContext={"groups"={"quotation:input"}}
  * )
  */
 class Quotation
@@ -30,7 +30,7 @@ class Quotation
     /**
      * @ORM\Column(type="string")
      * @Assert\Choice(callback="getStateList")
-     * @Groups({"quotation", "user", "project", "customer", "write"})
+     * @Groups({"quotation", "user", "project", "customer", "quotation:input"})
      * @ApiProperty(
      *     attributes={
      *         "openapi_context"={

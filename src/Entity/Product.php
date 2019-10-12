@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ApiResource(
  *      normalizationContext={"groups"={"product"}},
- *      denormalizationContext={"groups"={"write"}}
+ *      denormalizationContext={"groups"={"product:input"}}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  */
@@ -40,7 +40,7 @@ class Product
      * @ORM\Column(type="string", length=50)
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
-     * @Groups({"product", "project", "user", "quotation", "customer", "write"})
+     * @Groups({"product", "project", "user", "quotation", "customer", "product:input"})
      */
     private $name;
 
