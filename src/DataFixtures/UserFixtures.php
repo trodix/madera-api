@@ -5,10 +5,14 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
+
+    public const USER_ADMIN_REFERENCE = 'user-admin';
+    public const USER_COMMERCIAL_REFERENCE = 'user-commercial';
 
     private $passwordEncoder;
 
@@ -45,6 +49,7 @@ class UserFixtures extends Fixture
             ])
         ;
         $manager->persist($user);
+        $this->addReference(self::USER_ADMIN_REFERENCE, $user);
 
 
         /**
@@ -64,6 +69,7 @@ class UserFixtures extends Fixture
             ])
         ;
         $manager->persist($user);
+        $this->addReference(self::USER_COMMERCIAL_REFERENCE, $user);
 
 
 
