@@ -65,7 +65,7 @@ class Customer
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=128, nullable=true)
+     * @ORM\Column(type="string", length=128, nullable=true, unique=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=128)
      * @Groups({"project", "customer", "quotation", "customer:input"})

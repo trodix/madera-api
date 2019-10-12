@@ -64,7 +64,7 @@ class Quotation
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="quotations")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"quotation"})
+     * @Groups({"quotation", "quotation:input"})
      */
     private $project;
 

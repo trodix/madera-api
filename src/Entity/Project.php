@@ -51,7 +51,7 @@ class Project
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"project", "user", "quotation"})
+     * @Groups({"project", "user", "quotation", "project:input"})
      */
     private $customer;
 
