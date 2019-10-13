@@ -20,3 +20,5 @@
 ## Next step
 
 ### [See how to send authenticated request to the api](Documentation/Api.md)
+
+### [See the data model](Documentation/DataModel.md)
