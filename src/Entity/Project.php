@@ -80,11 +80,6 @@ class Project
      */
     private $quotations;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projects")
-     * @Groups({"project", "customer", "quotation", "project:input"})
-     */
-    private $user;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="projects")
@@ -93,11 +88,18 @@ class Project
      */
     private $products;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="projects")
+     * @Groups({"project", "customer", "quotation", "project:input"})
+     */
+    private $users;
+
     public function __construct()
     {
         $this->quotations = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->reference = strtoupper(uniqid("pr-"));
+        $this->users = new ArrayCollection();
     }
 
 
@@ -223,17 +225,6 @@ class Project
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Product[]
@@ -258,6 +249,34 @@ class Project
         if ($this->products->contains($product)) {
             $this->products->removeElement($product);
             $product->removeProject($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeProject($this);
         }
 
         return $this;
