@@ -61,15 +61,22 @@ class User implements UserInterface
     private $firstname;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="user")
-     * @Groups({"user"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Site", mappedBy="users")
+     * @Groups({"user", "user:input"})
+     */
+    private $sites;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Project", inversedBy="users")
      * @ApiSubresource
+     * @Groups({"user"})
      */
     private $projects;
 
     public function __construct()
     {
         $this->projects = new ArrayCollection();
+        $this->sites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -183,6 +190,35 @@ class User implements UserInterface
         return $this;
     }
 
+
+    /**
+     * @return Collection|Site[]
+     */
+    public function getSites(): Collection
+    {
+        return $this->sites;
+    }
+
+    public function addSite(Site $site): self
+    {
+        if (!$this->sites->contains($site)) {
+            $this->sites[] = $site;
+            $site->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSite(Site $site): self
+    {
+        if ($this->sites->contains($site)) {
+            $this->sites->removeElement($site);
+            $site->removeUser($this);
+        }
+
+        return $this;
+    }
+
     /**
      * @return Collection|Project[]
      */
@@ -195,7 +231,6 @@ class User implements UserInterface
     {
         if (!$this->projects->contains($project)) {
             $this->projects[] = $project;
-            $project->setUser($this);
         }
 
         return $this;
@@ -205,10 +240,6 @@ class User implements UserInterface
     {
         if ($this->projects->contains($project)) {
             $this->projects->removeElement($project);
-            // set the owning side to null (unless already changed)
-            if ($project->getUser() === $this) {
-                $project->setUser(null);
-            }
         }
 
         return $this;

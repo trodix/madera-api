@@ -39,19 +39,17 @@ class Customer
     private $reference;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
-     * @Assert\NotBlank
      * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
-     * @Assert\NotBlank
      * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $firstname;
@@ -65,9 +63,10 @@ class Customer
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=128, nullable=true, unique=true)
+     * @ORM\Column(type="string", length=128, unique=true)
      * @Assert\Type(type="string")
      * @Assert\Length(max=128)
+     * @Assert\NotBlank
      * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $email;
@@ -128,6 +127,11 @@ class Customer
      * @Groups({"project", "customer", "quotation"})
      */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $companyName;
 
     public function __construct()
     {
@@ -325,6 +329,18 @@ class Customer
     public function setAddress(?string $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCompanyName(): ?string
+    {
+        return $this->companyName;
+    }
+
+    public function setCompanyName(?string $companyName): self
+    {
+        $this->companyName = $companyName;
 
         return $this;
     }

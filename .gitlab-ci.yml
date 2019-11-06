@@ -1,0 +1,57 @@
+image: misterio92/ci-php-node:latest
+
+variables:
+    WORK_DIR: ${CI_PROJECT_NAME}
+    BRANCH: ${CI_COMMIT_REF_NAME}
+    REPO: https://gitlab.com/l4pc/madera-api.git
+  
+stages:
+    - test
+    - deploy
+
+# Run our tests
+test:
+    stage: test
+    environment: 
+        name: Test
+    services:
+        - mariadb:10.1
+    variables:
+          # Configure mysql service (https://hub.docker.com/_/mysql/)
+          MYSQL_ROOT_PASSWORD: test
+
+    # Select what we should cache between builds
+    cache:
+        paths:
+            - vendor/
+    before_script:
+        - npm install newman -g
+    script:
+        - composer install
+        - php bin/console doctrine:database:create --env=test
+        - php bin/console doctrine:schema:update --force --env=test
+        - php bin/console doctrine:fixtures:load --env=test
+        - php bin/console cache:clear --env=test
+        # - newman run ./tests/postman_collection.json --environment ./tests/postman_environment.json -r cli
+
+deploy:
+    stage: deploy
+    before_script:
+        - apt-get update -qq
+        # Setup SSH deploy keys
+        - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+        - eval $(ssh-agent -s)
+        - ssh-add <(echo "$SSH_PRIVATE_KEY")
+        - mkdir -p ~/.ssh
+        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    script: 
+        - ssh root@51.77.192.18 'rm -rf /var/www/trodix.com/api/*'
+        - ls
+        - pwd
+        - scp -r ./* root@51.77.192.18:/var/www/trodix.com/api
+        - ssh root@51.77.192.18 'cd /var/www/trodix.com/api/; php composer.phar install --no-dev --optimize-autoloader;'
+    only: 
+        - develop
+        - master
+
+
