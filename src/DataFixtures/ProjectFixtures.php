@@ -25,7 +25,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             // ->setReference("H000001") // Auto-generated bu uniqid
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
             ->addProduct($this->getReference(ProductFixtures::PRODUCT_1_REFERENCE))
-            ->setUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
+            ->addUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
         ;
 
         $manager->persist($project);
@@ -38,7 +38,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             // ->setReference("H000002") // Auto-generated bu uniqid
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
             ->addProduct($this->getReference(ProductFixtures::PRODUCT_2_REFERENCE))
-            ->setUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
+            ->addUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
         ;
         
         $manager->persist($project);
@@ -52,7 +52,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_2_REFERENCE))
             ->addProduct($this->getReference(ProductFixtures::PRODUCT_3_REFERENCE))
             ->addProduct($this->getReference(ProductFixtures::PRODUCT_2_REFERENCE))
-            ->setUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
+            ->addUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
         ;
         
         $manager->persist($project);
