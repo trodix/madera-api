@@ -17,11 +17,11 @@ security:
 
         # activate different ways to authenticate
         login_check:
-            pattern:  ^/api/login_check
+            pattern:  ^/v1/login_check
             stateless: true
             anonymous: true
             json_login:
-                check_path: /api/login_check
+                check_path: /v1/login_check
                 success_handler:          lexik_jwt_authentication.handler.authentication_success
                 failure_handler:          lexik_jwt_authentication.handler.authentication_failure
             guard:
@@ -29,26 +29,26 @@ security:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
         doc: # To change the swagger_ui path: https://api-platform.com/docs/core/swagger/#changing-the-swagger-ui-location
-            pattern: ^/api/?$
+            pattern: ^/v1/?$
             anonymous: true
 
         # login:
-        #     pattern:   ^/api/login
+        #     pattern:   ^/v1/login
         #     stateless: true
         #     anonymous: true
 
         # register:
-        #     pattern:  ^/api/register
+        #     pattern:  ^/v1/register
         #     stateless: true
         #     anonymous: true
 
         refresh:
-            pattern: ^/api/token/refresh
+            pattern: ^/v1/token/refresh
             stateless: true
             anonymous: true
 
         api:
-            pattern:   ^/api
+            pattern:   ^/v1
             stateless: true
             guard:
                 authenticators:
@@ -68,9 +68,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        # - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/v1/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/v1/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # - { path: ^/v1,       roles: IS_AUTHENTICATED_FULLY }
 
     role_hierarchy:
         ROLE_ADMIN:       [ROLE_COMMERCIAL]

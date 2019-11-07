@@ -4,6 +4,7 @@ variables:
     WORK_DIR: ${CI_PROJECT_NAME}
     BRANCH: ${CI_COMMIT_REF_NAME}
     REPO: https://gitlab.com/l4pc/madera-api.git
+    SSL_PASSPHRASE: ${SSL_PASSPHRASE}
   
 stages:
     - test
@@ -32,6 +33,9 @@ test:
         - php bin/console doctrine:schema:update --force --env=test
         - php bin/console doctrine:fixtures:load --env=test
         - php bin/console cache:clear --env=test
+        - mkdir -p config/jwt
+        - openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:${SSL_PASSPHRASE}
+        - openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:${SSL_PASSPHRASE}
         # - newman run ./tests/postman_collection.json --environment ./tests/postman_environment.json -r cli
 
 deploy:
@@ -49,7 +53,7 @@ deploy:
         - ls
         - pwd
         - scp -r ./* root@51.77.192.18:/var/www/trodix.com/api
-        - ssh root@51.77.192.18 'cd /var/www/trodix.com/api/; php composer.phar install --no-dev --optimize-autoloader;'
+        - ssh root@51.77.192.18 'cd /var/www/trodix.com/api/; php composer.phar install --no-dev --optimize-autoloader; mkdir -p config/jwt; openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:${SSL_PASSPHRASE}; openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:${SSL_PASSPHRASE};'
     only: 
         - develop
         - master
