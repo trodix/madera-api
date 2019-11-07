@@ -4,17 +4,17 @@
 
 **See the API documentation with Swagger UI**
 
-[Anonnymous] **GET** `/api`
+[Anonnymous] **GET** `/v1`
 
 **API Authenticated ressources**
 
-[Authenticated] **ANY** `/api/**`
+[Authenticated] **ANY** `/v1/**`
 
 ## Authentication
 
 ### **Get a new JWT token**
 
-[Anonnymous] **POST**|**GET** `/api/login_check`
+[Anonnymous] **POST**|**GET** `/v1/login_check`
 
 **Request body**
 
@@ -36,7 +36,7 @@
 
 ### **Refresh a token**
 
-[Authenticated] **POST**|**GET** `/api/token/refresh`
+[Authenticated] **POST**|**GET** `/v1/token/refresh`
 
 **Request body**
 
@@ -57,9 +57,9 @@
 
 ## Send an authenticated request
 
-1. Get a JWT token at `/api/login_check` with your credentials
+1. Get a JWT token at `/v1/login_check` with your credentials
 2. Set the **Autorization** header with: `Bearer YOUR_TOKEN`
-3. Request the ressource that you want at `/api/**`
+3. Request the ressource that you want at `/v1/**`
 
 **With Swagger UI**
 
@@ -71,4 +71,4 @@
 
 If your token has expired, you will not be able to send a authenticated request to the API.
 
-In order to refresh your token, send a request to `/api/token/refresh` or request a new one at `/api/login_check`.
+In order to refresh your token, send a request to `/v1/token/refresh` or request a new one at `/v1/login_check`.
