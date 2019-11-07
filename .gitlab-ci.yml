@@ -50,11 +50,11 @@ deploy:
         - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     script: 
         - ssh root@51.77.192.18 'rm -rf /var/www/trodix.com/api'
-        - ls
+        - ls -lah
         - pwd
         - ssh root@51.77.192.18 'cd /var/www/trodix.com; mkdir api;'
-        - scp -r ./.[!.]* root@51.77.192.18:/var/www/trodix.com/api
-        - ssh root@51.77.192.18 'cd /var/www/trodix.com/api/; php composer.phar install --no-dev --optimize-autoloader;'
+        - scp -rp ./(*|.*) root@51.77.192.18:/var/www/trodix.com/api
+        - ssh root@51.77.192.18 'cd /var/www/trodix.com/api/; ls -lah; php composer.phar install --no-dev --optimize-autoloader;'
         - ssh root@51.77.192.18 'cd /var/www/trodix.com/api/; mkdir -p config/jwt; openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:${SSL_PASSPHRASE}; openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:${SSL_PASSPHRASE};'
     only: 
         - develop
