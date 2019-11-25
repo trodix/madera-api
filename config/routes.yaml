@@ -8,9 +8,21 @@
 #     controller: App\Controller\AuthController::login
 #     methods: [GET, POST]
 
+# default:
+#     path: /
+#     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
+#     defaults:
+#         route: api_platform.swagger.action.ui
+#         permanent: true
+#         keepQueryParams: true
+
 api_login_check:
     path: /v1/login_check
 
 gesdinet_jwt_refresh_token:
     path: /v1/token/refresh
     controller: gesdinet.jwtrefreshtoken::refresh
+
+app_metrics:
+    resource: '@ArtprimaPrometheusMetricsBundle/Resources/config/routing.xml'
+
