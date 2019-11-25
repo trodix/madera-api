@@ -8,6 +8,13 @@
 #     controller: App\Controller\AuthController::login
 #     methods: [GET, POST]
 
+homepage:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+    defaults:
+        path: /v1
+        permanent: true
+
 api_login_check:
     path: /v1/login_check
 
