@@ -4,22 +4,28 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\ExistsFilter;
 
 /**
+ * @ORM\Entity(repositoryClass="App\Repository\CustomerRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ApiResource(
  *      normalizationContext={"groups"={"customer"}},
  *      denormalizationContext={"groups"={"customer:input"}}
  * )
- * @ORM\Entity(repositoryClass="App\Repository\CustomerRepository")
+ * @ApiFilter(ExistsFilter::class, properties={"deletedAt"})
  */
 class Customer
 {
+    use SoftDeleteableEntity;
     
     /**
      * @ORM\Id()
@@ -102,7 +108,7 @@ class Customer
     private $country;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="customer", orphanRemoval=true)
      * @Groups({"customer", "customer:input"})
      */
     private $projects;
