@@ -3,14 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SpecificationRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ApiResource(
  *      normalizationContext={"groups"={"specification"}},
  *      denormalizationContext={"groups"={"specification:input"}}
@@ -18,6 +21,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Specification
 {
+    use SoftDeleteableEntity;
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -36,7 +41,7 @@ class Specification
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ComponentSpecification", mappedBy="specification")
+     * @ORM\OneToMany(targetEntity="App\Entity\ComponentSpecification", mappedBy="specification", orphanRemoval=true)
      */
     private $componentSpecifications;
 

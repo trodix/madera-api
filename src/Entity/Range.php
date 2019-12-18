@@ -3,15 +3,18 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RangeRepository")
  * @ORM\Table(name="Range_Module")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ApiResource(
  *      normalizationContext={"groups"={"range"}},
  *      denormalizationContext={"groups"={"range:input"}}
@@ -19,6 +22,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Range
 {
+    use SoftDeleteableEntity;
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -45,7 +50,7 @@ class Range
     private $windowFrame;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Module", mappedBy="moduleRange")
+     * @ORM\OneToMany(targetEntity="App\Entity\Module", mappedBy="moduleRange", orphanRemoval=true)
      * @Groups({"range"})
      */
     private $modules;
