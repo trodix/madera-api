@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Project;
 use App\DataFixtures\UserFixtures;
-use App\DataFixtures\ProductFixtures;
 use App\DataFixtures\CustomerFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -24,7 +23,6 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             ->setName("Cabane normande")
             // ->setReference("H000001") // Auto-generated bu uniqid
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
-            ->addProduct($this->getReference(ProductFixtures::PRODUCT_1_REFERENCE))
             ->addUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
         ;
 
@@ -37,7 +35,6 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             ->setName("Bureaux boisés de campagne")
             // ->setReference("H000002") // Auto-generated bu uniqid
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_1_REFERENCE))
-            ->addProduct($this->getReference(ProductFixtures::PRODUCT_2_REFERENCE))
             ->addUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
         ;
         
@@ -50,8 +47,6 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             ->setName("Le domaine de Hagrid")
             // ->setReference("H000003") // Auto-generated bu uniqid
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_2_REFERENCE))
-            ->addProduct($this->getReference(ProductFixtures::PRODUCT_3_REFERENCE))
-            ->addProduct($this->getReference(ProductFixtures::PRODUCT_2_REFERENCE))
             ->addUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
         ;
         
@@ -68,7 +63,6 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CustomerFixtures::class,
-            ProductFixtures::class,
             UserFixtures::class
         ];
     }

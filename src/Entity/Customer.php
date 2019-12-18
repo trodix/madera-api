@@ -5,8 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,10 +31,8 @@ class Customer
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\Type(type="string")
-     * @Assert\Length(max=50)
-     * @Assert\NotBlank
      * @Groups({"project", "customer", "quotation"})
+     * @ApiProperty(writable=false)
      */
     private $reference;
 
@@ -64,7 +62,7 @@ class Customer
 
     /**
      * @ORM\Column(type="string", length=128, unique=true)
-     * @Assert\Type(type="string")
+     * @Assert\Email
      * @Assert\Length(max=128)
      * @Assert\NotBlank
      * @Groups({"project", "customer", "quotation", "customer:input"})
@@ -106,7 +104,6 @@ class Customer
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="customer")
      * @Groups({"customer", "customer:input"})
-     * @ApiSubresource
      */
     private $projects;
 

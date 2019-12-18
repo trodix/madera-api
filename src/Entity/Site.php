@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -29,36 +29,50 @@ class Site
     /**
      * @ORM\Column(type="string", length=45)
      * @Groups({"site", "site:input", "user", "project"})
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=45)
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=45)
      * @Groups({"site", "site:input", "user", "project"})
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=45)
+     * @Assert\NotBlank
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=10)
      * @Groups({"site", "site:input", "user", "project"})
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=10)
+     * @Assert\NotBlank
      */
     private $zipcode;
 
     /**
      * @ORM\Column(type="string", length=45)
      * @Groups({"site", "site:input", "user", "project"})
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=45)
+     * @Assert\NotBlank
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=45)
      * @Groups({"site", "site:input", "user", "project"})
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=45)
+     * @Assert\NotBlank
      */
     private $country;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="sites")
-     * @ApiSubresource
      * @Groups({"site"})
      */
     private $users;

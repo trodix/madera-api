@@ -3,12 +3,13 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\DataFixtures\SiteFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
 
     public const USER_ADMIN_REFERENCE = 'user-admin';
@@ -47,6 +48,7 @@ class UserFixtures extends Fixture
             ->setRoles([
                 "ROLE_SUPER_ADMIN"
             ])
+            ->addSite($this->getReference(SiteFixtures::SITE_1_REFERENCE))
         ;
         $manager->persist($user);
         $this->addReference(self::USER_ADMIN_REFERENCE, $user);
@@ -67,6 +69,7 @@ class UserFixtures extends Fixture
             ->setRoles([
                 "ROLE_COMMERCIAL"
             ])
+            ->addSite($this->getReference(SiteFixtures::SITE_1_REFERENCE))
         ;
         $manager->persist($user);
         $this->addReference(self::USER_COMMERCIAL_REFERENCE, $user);
@@ -79,4 +82,14 @@ class UserFixtures extends Fixture
 
         $manager->flush();
     }
+
+
+    public function getDependencies()
+    {
+        return [
+            SiteFixtures::class
+        ];
+    }
+
+
 }

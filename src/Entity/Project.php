@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -41,10 +41,8 @@ class Project
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\Type(type="string")
-     * @Assert\Length(max=50)
-     * @Assert\NotBlank
      * @Groups({"project", "customer", "quotation", "user"})
+     * @ApiProperty(writable=false)
      */
     private $reference;
 
@@ -76,17 +74,8 @@ class Project
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Quotation", mappedBy="project", orphanRemoval=true)
      * @Groups({"project", "user", "customer", "project:input"})
-     * @ApiSubresource
      */
     private $quotations;
-
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="projects")
-     * @Groups({"project", "customer", "user", "quotation", "project:input"})
-     * @ApiSubresource
-     */
-    private $products;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="projects")
@@ -94,12 +83,17 @@ class Project
      */
     private $users;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Module", mappedBy="projects")
+     */
+    private $modules;
+
     public function __construct()
     {
         $this->quotations = new ArrayCollection();
-        $this->products = new ArrayCollection();
         $this->reference = strtoupper(uniqid("pr-"));
         $this->users = new ArrayCollection();
+        $this->modules = new ArrayCollection();
     }
 
 
@@ -227,34 +221,6 @@ class Project
 
 
     /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->addProject($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->products->contains($product)) {
-            $this->products->removeElement($product);
-            $product->removeProject($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|User[]
      */
     public function getUsers(): Collection
@@ -277,6 +243,34 @@ class Project
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
             $user->removeProject($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Module[]
+     */
+    public function getModules(): Collection
+    {
+        return $this->modules;
+    }
+
+    public function addModule(Module $module): self
+    {
+        if (!$this->modules->contains($module)) {
+            $this->modules[] = $module;
+            $module->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModule(Module $module): self
+    {
+        if ($this->modules->contains($module)) {
+            $this->modules->removeElement($module);
+            $module->removeProject($this);
         }
 
         return $this;

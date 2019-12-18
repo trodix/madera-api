@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,7 +17,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ApiResource(
  *      normalizationContext={"groups"={"user"}},
- *      denormalizationContext={"groups"={"user:input"}}
+ *      denormalizationContext={"groups"={"user:input"}},
+ *      itemOperations={"get"},
+ *      collectionOperations={"get"}
  * )
  */
 class User implements UserInterface
@@ -34,12 +35,17 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"user", "project", "quotation", "customer", "user:input"})
+     * @Assert\Email
+     * @Assert\Length(max=180)
+     * @Assert\NotBlank
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
      * @Groups({"user", "user:input"})
+     * @Assert\Type("array")
+     * @Assert\NotBlank
      */
     private $roles = [];
 
@@ -52,12 +58,16 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      * @Groups({"user", "project", "quotation", "customer", "user:input"})
+     * @Assert\Type(type="string")
+     * @Assert\Length(max=100)
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      * @Groups({"user", "project", "quotation", "customer", "user:input"})
+     * @Assert\Type("string")
+     * @Assert\Length(max=100)
      */
     private $firstname;
 
@@ -69,7 +79,6 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Project", inversedBy="users")
-     * @ApiSubresource
      * @Groups({"user"})
      */
     private $projects;
