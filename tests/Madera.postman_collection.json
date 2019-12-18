@@ -1,0 +1,2282 @@
+{
+	"info": {
+		"_postman_id": "e2d44a3e-6eea-40d0-bb54-f68a909e45cc",
+		"name": "Madera",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Admin login check",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4860b45a-ecde-462e-a42e-808b4a5e41ba",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"",
+											"pm.environment.set(\"token_admin\", data.token);",
+											"pm.environment.set(\"refresh_token_admin\", data.refresh_token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"admin@madera.com\",\n\t\"password\": \"madera2019\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/login_check",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"login_check"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Rest API",
+			"item": [
+				{
+					"name": "Role Admin",
+					"item": [
+						{
+							"name": "Site",
+							"item": [
+								{
+									"name": "User wants to get all sites",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a2929e6a-428e-44aa-8f3b-a101f75f6e3b",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/sites.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"sites.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to get one site",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "50feedd1-e568-4477-b939-546e416eea8f",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/sites/1.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"sites",
+												"1.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to add a new site",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fde88457-4b57-4ae5-b365-cd494f10a62a",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Le domaine de Agrid\",\n  \"address\": \"8 chemin de traverse\",\n  \"zipcode\": \"21000\",\n  \"city\": \"Dijon\",\n  \"country\": \"France\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/sites.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"sites.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to update a site",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4d149d71-7960-4f0d-99a1-14428ab6a154",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/merge-patch+json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Le domaine de Harry\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/sites/1.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"sites",
+												"1.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to delete a site",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "02dc51b8-766f-42f2-a3af-68bdad53b125",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/sites/1.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"sites",
+												"1.json"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "User",
+							"item": [
+								{
+									"name": "User wants to get all users",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a2929e6a-428e-44aa-8f3b-a101f75f6e3b",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/users.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"users.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to get one user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "50feedd1-e568-4477-b939-546e416eea8f",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/users/1.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"users",
+												"1.json"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Customer",
+							"item": [
+								{
+									"name": "User wants to get all customers",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2b400bc0-d9e9-49ad-9f6d-7e3720f50065",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/customers.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"customers.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to get one customer",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "cd5c89c4-bf4b-420e-bf95-03c34b4f6cc1",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/customers/2.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"customers",
+												"2.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to add a customer",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "8920f8b5-dc73-4cf9-b08d-f3991013f0c6",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"lastname\": \"Dujardin\",\n    \"firstname\": \"Jean\",\n    \"phone\": \"0669696969\",\n    \"email\": \"j.dujardin@gmail.com\",\n    \"address\": \"4 Rue de la pastèque qui roule\",\n    \"zipcode\": \"21000\",\n    \"city\": \"Dijon\",\n    \"country\": \"France\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/customers.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"customers.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to update a customer",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "8920f8b5-dc73-4cf9-b08d-f3991013f0c6",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/merge-patch+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"j.dujardin-update@gmail.com\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/customers/3.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"customers",
+												"3.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to remove a customer",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9407666f-da99-43cb-b6f6-ecc4b9ef9715",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/customers/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"customers",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Project",
+							"item": [
+								{
+									"name": "User wants to get all projects",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3d120017-b98a-49ec-b207-295e48107a49",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/projects.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"projects.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to get one project",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7d9d202e-6ab2-4864-a14f-f4372fc5dac3",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/projects/1.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"projects",
+												"1.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to create a new project",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c7a62c0a-3552-4f93-a090-a1c518967de9",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Project test 1\",\n  \"customer\": \"/v1/customers/1\",\n  \"users\": [\"/v1/users/2\"]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/projects",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"projects"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to update a project",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "78820c25-33c2-4b38-bd59-168244d39dd5",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/merge-patch+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Project test updated 1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/projects/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"projects",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to delete a project",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c7a62c0a-3552-4f93-a090-a1c518967de9",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/projects/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"projects",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Quotation",
+							"item": [
+								{
+									"name": "User wants to get all quotations",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9e450aa7-4d49-4bae-a3b4-ab8464e31d1b",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/quotations.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"quotations.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to get one quotation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9e450aa7-4d49-4bae-a3b4-ab8464e31d1b",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/quotations/1.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"quotations",
+												"1.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to create a new quotation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "44f26cf8-72c5-4dd8-a894-84f974106933",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"state\": \"WAITING\",\n  \"project\": \"/v1/projects/1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/quotations",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"quotations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to update a quotation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4225e10e-e44f-4ed5-a736-19878889c6ac",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"state\": \"VALIDATED\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/quotations/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"quotations",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to delete a quotation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1cfe9764-01cb-47a7-84f9-a47bbef3ecc8",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/quotations/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"quotations",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Module",
+							"item": [
+								{
+									"name": "User wants to get all modules",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c19ff78d-2f53-46c9-9e44-864d7b965512",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/modules.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"modules.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to get one module",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c19ff78d-2f53-46c9-9e44-864d7b965512",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/modules/1.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"modules",
+												"1.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to create a module",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c19ff78d-2f53-46c9-9e44-864d7b965512",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"module de test 1\",\n  \"height\": 250,\n  \"width\": 100,\n  \"usageUnit\": \"cm\",\n  \"moduleRange\": \"/v1/ranges/1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/modules",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"modules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to update a module",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c19ff78d-2f53-46c9-9e44-864d7b965512",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/merge-patch+json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"height\": 200,\n  \"width\": 50\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/modules/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"modules",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to delete a module",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c19ff78d-2f53-46c9-9e44-864d7b965512",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/modules/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"modules",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Component",
+							"item": [
+								{
+									"name": "User wants to get all components",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "76415485-6103-4222-96f9-a9df5cdea7ed",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/components.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"components.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to get one component",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "76415485-6103-4222-96f9-a9df5cdea7ed",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/components/1.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"components",
+												"1.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to create a new component",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "18804768-fa23-4cb3-acc2-9d8f90767364",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Poignée de porte\",\n  \"unitPrice\": 18,\n  \"finish\": \"Chrome\",\n  \"componentSpecifications\": [\"/v1/component_specifications/1\"]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/components",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"components"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to edit a component",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "18804768-fa23-4cb3-acc2-9d8f90767364",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/merge-patch+json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"unitPrice\": 21.99,\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/components/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"components",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to delete a component",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "18804768-fa23-4cb3-acc2-9d8f90767364",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/components/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"components",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Range",
+							"item": [
+								{
+									"name": "User wants to get all ranges",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "d280e2e1-3385-4cae-873d-a999532bfb3b",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/ranges.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"ranges.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to get one range",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2bbeeeb5-907f-43f1-975f-2778550094d5",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/ranges/1.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"ranges",
+												"1.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to create a new range",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "8d8cba22-3380-4fcb-b116-4d8c1166f0aa",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Premium\",\r\n  \"windowFrame\": \"Fenêtre or\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/ranges",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"ranges"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to update ranges",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a7d7dfe4-90b8-45e2-a037-5f2f46a6d517",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/merge-patch+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Standard\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/ranges/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"ranges",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to delete ranges",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "61a30e8b-57e0-48f9-923a-07a6a762e4be",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/ranges/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"ranges",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Specification",
+							"item": [
+								{
+									"name": "User wants to get specifications",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f738088b-89dc-492a-8a8e-0127405d16fa",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/specifications.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"specifications.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to get one specification",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f91c8c63-7176-4baa-8219-94b080b2ae92",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{url}}/specifications/1.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"specifications",
+												"1.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to create one specification",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a644c789-0a83-40b5-8e19-0b2a2a10d217",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"type\": \"Toit\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/specifications",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"specifications"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to update one specification",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0a26d712-0e7d-4948-81ff-2f4332b3c2db",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/merge-patch+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"type\": \"Toit plat\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/specifications/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"specifications",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to delete one specification",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b53690d8-e7bf-4875-9cae-4d8cb15005ba",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/specifications/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"specifications",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "ComponentSpecification",
+							"item": [
+								{
+									"name": "User wants to get all component specifications",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "416508be-3973-4ef4-9f0d-d64bd35b35e8",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/component_specifications.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"component_specifications.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to get one component specifications",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "de6df681-9a2a-4768-afa1-10afbe58f720",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/component_specifications/1.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"component_specifications",
+												"1.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to create one component specifications",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "62f2bc83-6037-4995-a08a-e368a590a0b9",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"component\": \"/v1/components/1\",\r\n  \"measureUnit\": \"m3\",\r\n  \"measureValue\": 10,\r\n  \"specification\": \"/v1/specifications/1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/component_specifications",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"component_specifications"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to update one component specifications",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1d5f6b76-d102-487a-b767-58001d29590a",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/merge-patch+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"measureValue\": 20\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/component_specifications/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"component_specifications",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User want to delete one component specifications",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "87db554f-e89a-4d12-9640-e212d165a175",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{url}}/component_specifications/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"component_specifications",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "ModuleComponent",
+							"item": [
+								{
+									"name": "User wants to get all module component",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2aa4e927-0e4c-4750-8c84-3194300b05aa",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/module_components.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"module_components.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to get one module components",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "769fc00a-0bbb-483e-89f4-444e83c44f89",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/module_components/1.json",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"module_components",
+												"1.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to create one module components",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "64d00a25-4089-4c90-b7cb-0338c6c937f8",
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"component\": \"/v1/component/1\",\r\n  \"module\": \"/v1/module/1\",\r\n  \"quantity\": 666\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/module_components",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"module_components"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to update one module components",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b6647a6b-10c1-48b2-97c1-71e8540a6ad4",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"quantity\": 999\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/module_components/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"module_components",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User wants to delete one module components",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1f53b07e-d2b7-43eb-8ac0-175cc2277c81",
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/module_components/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"module_components",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{token_admin}}",
+								"type": "string"
+							}
+						]
+					},
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Role Bureau d'etude",
+					"item": [],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{token_admin}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a3c9c7a8-f306-4646-912f-a75c311446b2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b5822c55-70cd-4594-9ff0-dbf96fad9a41",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Role Commercial",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c956a373-4c14-4be1-a8d8-3ef1d33c50ee",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae4616a1-97e7-40b0-88c2-5da92843d359",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

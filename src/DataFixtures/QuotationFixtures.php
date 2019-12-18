@@ -11,6 +11,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 class QuotationFixtures extends Fixture implements DependentFixtureInterface
 {
     public const QUOTATION_1_REFERENCE = 'quotation-1';
+    public const QUOTATION_2_REFERENCE = 'quotation-2';
 
     public function load(ObjectManager $manager)
     {
@@ -21,8 +22,20 @@ class QuotationFixtures extends Fixture implements DependentFixtureInterface
         ;
         
         $manager->persist($quotation);
-        $manager->flush();
         $this->addReference(self::QUOTATION_1_REFERENCE, $quotation);
+
+        $quotation = new Quotation();
+        $quotation
+            ->setState("WAITING")
+            ->setProject($this->getReference(ProjectFixtures::PROJECT_2_REFERENCE))
+        ;
+        
+        $manager->persist($quotation);
+        $this->addReference(self::QUOTATION_2_REFERENCE, $quotation);
+
+
+        ///////////////////////////////
+        $manager->flush();
     }
 
     public function getDependencies()

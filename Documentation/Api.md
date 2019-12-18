@@ -51,6 +51,9 @@
 ```json
 {
   "token": "YOUR_TOKEN",
+  "user": {
+    "id": 9
+  },
   "refresh_token": "YOUR_REFRESH_TOKEN"
 }
 ```
