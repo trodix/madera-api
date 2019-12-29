@@ -72,6 +72,13 @@ class Site
     private $country;
 
     /**
+     * @ORM\Column(type="float")
+     * @Groups({"site", "site:input", "project"})
+     * @Assert\Type(type="float")
+     */
+    private $labor;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="sites")
      * @Groups({"site"})
      */
@@ -169,6 +176,18 @@ class Site
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
         }
+
+        return $this;
+    }
+
+    public function getLabor(): ?float
+    {
+        return $this->labor;
+    }
+
+    public function setLabor(float $labor): self
+    {
+        $this->labor = $labor;
 
         return $this;
     }

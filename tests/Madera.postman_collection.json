@@ -62,6 +62,54 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Admin token refresh",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4860b45a-ecde-462e-a42e-808b4a5e41ba",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"refresh_token\": {{refresh_token_admin}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/token/refresh",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"token",
+										"refresh"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"protocolProfileBehavior": {},
@@ -681,7 +729,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": \"Project test updated 1\"\n}",
+											"raw": "{\n  \"modules\": [\n  \t\"/v1/modules/4\"\n  ]\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2193,6 +2241,36 @@
 							],
 							"protocolProfileBehavior": {},
 							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Get a .PDF quotation file by quotation id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send email quotation to customer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/mailing/quotation/4",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"mailing",
+										"quotation",
+										"4"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"auth": {

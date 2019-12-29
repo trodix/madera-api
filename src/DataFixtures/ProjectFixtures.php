@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Project;
 use App\DataFixtures\UserFixtures;
+use App\DataFixtures\ModuleFixtures;
 use App\DataFixtures\CustomerFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
