@@ -19,6 +19,12 @@
     "behat/transliterator": {
         "version": "v1.2.0"
     },
+    "chillerlan/php-qrcode": {
+        "version": "3.2.0"
+    },
+    "chillerlan/php-settings-container": {
+        "version": "1.2.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -110,6 +116,12 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "dompdf/dompdf": {
+        "version": "v0.8.3"
+    },
+    "egulias/email-validator": {
+        "version": "2.1.12"
+    },
     "fig/link-util": {
         "version": "1.0.0"
     },
@@ -164,6 +176,12 @@
     "ocramius/proxy-manager": {
         "version": "2.2.3"
     },
+    "phenx/php-font-lib": {
+        "version": "0.5.1"
+    },
+    "phenx/php-svg-lib": {
+        "version": "v0.3.3"
+    },
     "php": {
         "version": "7.4"
     },
@@ -187,6 +205,21 @@
     },
     "psr/log": {
         "version": "1.1.0"
+    },
+    "sabberworm/php-css-parser": {
+        "version": "8.3.0"
+    },
+    "sensio/framework-extra-bundle": {
+        "version": "5.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "config/packages/sensio_framework_extra.yaml"
+        ]
     },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
@@ -304,6 +337,18 @@
     "symfony/inflector": {
         "version": "v4.3.4"
     },
+    "symfony/mailer": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "15658c2a0176cda2e7dba66276a2030b52bd81b2"
+        },
+        "files": [
+            "config/packages/mailer.yaml"
+        ]
+    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -412,6 +457,15 @@
     "symfony/security-http": {
         "version": "v4.3.4"
     },
+    "symfony/sendgrid-mailer": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.4",
+            "ref": "b46e4f8f1adb2864f0aa9c0ff57aea3324a07199"
+        }
+    },
     "symfony/serializer": {
         "version": "v4.3.4"
     },
@@ -491,6 +545,15 @@
     },
     "symfony/yaml": {
         "version": "v4.3.4"
+    },
+    "tijsverkoyen/css-to-inline-styles": {
+        "version": "2.2.2"
+    },
+    "twig/cssinliner-extra": {
+        "version": "v3.0.0"
+    },
+    "twig/extra-bundle": {
+        "version": "v3.0.0"
     },
     "twig/twig": {
         "version": "v2.11.3"

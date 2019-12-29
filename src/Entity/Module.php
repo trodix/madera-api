@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Quotation;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
@@ -29,20 +30,20 @@ class Module
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"module", "project"})
+     * @Groups({"module", "quotation"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"project", "module"})
+     * @Groups({"quotation", "module"})
      * @ApiProperty(writable=false)
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=45)
-     * @Groups({"module", "module:input", "project"})
+     * @Groups({"module", "module:input", "quotation"})
      * @Assert\Type(type="string")
      * @Assert\Length(max=45)
      * @Assert\NotBlank
@@ -51,7 +52,7 @@ class Module
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"module", "module:input", "project"})
+     * @Groups({"module", "module:input", "quotation"})
      * @Assert\Type(type="float")
      * @Assert\PositiveOrZero
      */
@@ -59,7 +60,7 @@ class Module
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"module", "module:input", "project"})
+     * @Groups({"module", "module:input", "quotation"})
      * @Assert\Type(type="float")
      * @Assert\PositiveOrZero
      */
@@ -67,27 +68,27 @@ class Module
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
-     * @Groups({"module", "module:input", "project"})
+     * @Groups({"module", "module:input", "quotation"})
      * @Assert\Type(type="string")
      * @Assert\Length(max=15)
      */
     private $usageUnit;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Project", inversedBy="modules")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Quotation", inversedBy="modules")
      */
-    private $projects;
+    private $quotations;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Range", inversedBy="modules")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"module", "module:input", "project"})
+     * @Groups({"module", "module:input", "quotation"})
      */
     private $moduleRange;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ModuleComponent", mappedBy="module")
-     * @Groups({"module", "project"})
+     * @Groups({"module", "quotation"})
      */
     private $moduleComponents;
 
@@ -152,26 +153,26 @@ class Module
     }
 
     /**
-     * @return Collection|Project[]
+     * @return Collection|Quotation[]
      */
-    public function getProjects(): Collection
+    public function getQuotations(): Collection
     {
-        return $this->projects;
+        return $this->quotations;
     }
 
-    public function addProject(Project $project): self
+    public function addQuotation(Quotation $quotation): self
     {
-        if (!$this->projects->contains($project)) {
-            $this->projects[] = $project;
+        if (!$this->quotations->contains($quotation)) {
+            $this->quotations[] = $quotation;
         }
 
         return $this;
     }
 
-    public function removeProject(Project $project): self
+    public function removeQuotation(Quotation $quotation): self
     {
-        if ($this->projects->contains($project)) {
-            $this->projects->removeElement($project);
+        if ($this->quotations->contains($quotation)) {
+            $this->quotations->removeElement($quotation);
         }
 
         return $this;
@@ -230,5 +231,15 @@ class Module
         }
 
         return $this;
+    }
+
+    public function getHTPrice(): ?float
+    {
+        $price = 0.00;
+        foreach($this->getModuleComponents() as $moduleComponent) {
+            $price += (float) $moduleComponent->getComponent()->getUnitPrice() * $moduleComponent->getQuantity();
+        }
+
+        return $price;
     }
 }

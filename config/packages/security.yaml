@@ -47,6 +47,12 @@ security:
             stateless: true
             anonymous: true
 
+        ## *** For debuging ***
+        # file:
+        #     pattern: ^/v1/file
+        #     anonymous: true
+        ## *** End ***
+
         api:
             pattern:   ^/v1
             stateless: true
@@ -54,9 +60,11 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
-
         main:
-            anonymous: true
+            anonymous: false
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

@@ -23,6 +23,7 @@ class SiteFixtures extends Fixture
             ->setZipcode("71000")
             ->setCity("Mâcon")
             ->setCountry("France")
+            ->setLabor(759.99)
         ;
 
         $manager->persist($site);
@@ -35,6 +36,7 @@ class SiteFixtures extends Fixture
             ->setZipcode("29200")
             ->setCity("Brest")
             ->setCountry("France")
+            ->setLabor(799.99)
         ;
 
         $manager->persist($site);
@@ -47,6 +49,7 @@ class SiteFixtures extends Fixture
             ->setZipcode("74000")
             ->setCity("Annecy")
             ->setCountry("France")
+            ->setLabor(719.99)
         ;
 
         $manager->persist($site);
@@ -59,6 +62,7 @@ class SiteFixtures extends Fixture
             ->setZipcode("59000")
             ->setCity("Lille")
             ->setCountry("France")
+            ->setLabor(759.99)
         ;
 
         $manager->persist($site);
@@ -71,6 +75,7 @@ class SiteFixtures extends Fixture
             ->setZipcode("40100")
             ->setCity("Mâcon")
             ->setCountry("France")
+            ->setLabor(749.99)
         ;
 
         $manager->persist($site);

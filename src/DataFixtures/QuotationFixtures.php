@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Quotation;
+use App\DataFixtures\ModuleFixtures;
 use App\DataFixtures\ProjectFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -20,6 +21,8 @@ class QuotationFixtures extends Fixture implements DependentFixtureInterface
         $quotation
             ->setState("WAITING")
             ->setProject($this->getReference(ProjectFixtures::PROJECT_1_REFERENCE))
+            // ->setTravelCost(139.95)
+            // ->setVat(20.00)
         ;
         
         $manager->persist($quotation);
@@ -30,6 +33,8 @@ class QuotationFixtures extends Fixture implements DependentFixtureInterface
         $quotation
             ->setState("WAITING")
             ->setProject($this->getReference(ProjectFixtures::PROJECT_2_REFERENCE))
+            ->setTravelCost(25.99)
+            ->setVat(0.00)
         ;
         
         $manager->persist($quotation);
@@ -40,6 +45,11 @@ class QuotationFixtures extends Fixture implements DependentFixtureInterface
         $quotation
             ->setState("WAITING")
             ->setProject($this->getReference(ProjectFixtures::PROJECT_3_REFERENCE))
+            ->addModule($this->getReference(ModuleFixtures::MODULE_MUR_INTERIEUR_1_REFERENCE))
+            ->addModule($this->getReference(ModuleFixtures::MODULE_MUR_INTERIEUR_2_REFERENCE))
+            ->addModule($this->getReference(ModuleFixtures::MODULE_MUR_INTERIEUR_3_REFERENCE))
+            ->setTravelCost(139.95)
+            ->setVat(20.00)
         ;
         
         $manager->persist($quotation);
@@ -53,7 +63,8 @@ class QuotationFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            ProjectFixtures::class
+            ProjectFixtures::class,
+            ModuleFixtures::class
         ];
     }
 }

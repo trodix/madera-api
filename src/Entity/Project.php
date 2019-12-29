@@ -29,7 +29,7 @@ class Project
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"project", "customer", "quotation", "user"})
+     * @Groups({"project", "customer", "quotation" })
      */
     private $id;
 
@@ -38,22 +38,23 @@ class Project
      * @Assert\Type(type="string")
      * @Assert\Length(max=50)
      * @Assert\NotBlank
-     * @Groups({"project", "customer", "quotation", "user", "project:input"})
+     * @Groups({"project", "customer", "quotation",  "project:input"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"project", "customer", "quotation", "user"})
+     * @Groups({"project", "customer", "quotation" })
      * @ApiProperty(writable=false)
      */
     private $reference;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"project", "user", "quotation", "project:input"})
+     * @Groups({"project",  "quotation", "project:input"})
      */
+    
     private $customer;
 
     /**
@@ -61,7 +62,7 @@ class Project
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @Groups({"project", "customer", "user", "quotation"})
+     * @Groups({"project", "customer",  "quotation"})
      */
     private $createdAt;
 
@@ -70,13 +71,13 @@ class Project
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
-     * @Groups({"project", "customer", "user", "quotation"})
+     * @Groups({"project", "customer",  "quotation"})
      */
     private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Quotation", mappedBy="project", orphanRemoval=true)
-     * @Groups({"project", "user", "customer", "project:input"})
+     * @Groups({"project",  "customer", "project:input"})
      */
     private $quotations;
 
@@ -86,17 +87,12 @@ class Project
      */
     private $users;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Module", mappedBy="projects")
-     */
-    private $modules;
 
     public function __construct()
     {
         $this->quotations = new ArrayCollection();
         $this->reference = strtoupper(uniqid("pr-"));
         $this->users = new ArrayCollection();
-        $this->modules = new ArrayCollection();
     }
 
 
@@ -250,32 +246,5 @@ class Project
 
         return $this;
     }
-
-    /**
-     * @return Collection|Module[]
-     */
-    public function getModules(): Collection
-    {
-        return $this->modules;
-    }
-
-    public function addModule(Module $module): self
-    {
-        if (!$this->modules->contains($module)) {
-            $this->modules[] = $module;
-            $module->addProject($this);
-        }
-
-        return $this;
-    }
-
-    public function removeModule(Module $module): self
-    {
-        if ($this->modules->contains($module)) {
-            $this->modules->removeElement($module);
-            $module->removeProject($this);
-        }
-
-        return $this;
-    }
+        
 }

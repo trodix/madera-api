@@ -1,0 +1,4 @@
+### For debuging
+# framework:
+#     mailer:
+#         dsn: 'null://null'

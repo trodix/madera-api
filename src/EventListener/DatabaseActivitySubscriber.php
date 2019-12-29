@@ -2,7 +2,9 @@
 
 namespace App\EventListener;
 
+use App\Service\Mailing;
 use Doctrine\ORM\Events;
+use App\Entity\Quotation;
 use Symfony\Bridge\Monolog\Logger;
 use Doctrine\Common\EventSubscriber;
 use Symfony\Component\Security\Core\Security;
@@ -11,13 +13,18 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 class DatabaseActivitySubscriber implements EventSubscriber
 {
 
-    public function __construct(Logger $logger, Security $security)
+    protected $mailing;
+
+    public function __construct(Logger $logger, Security $security, Mailing $mailing)
     {
         // Avoid calling getUser() in the constructor: auth may not
         // be complete yet. Instead, store the entire Security object.
         $this->security = $security;
 
         $this->logger = $logger;
+
+        $this->mailing = $mailing;
+
     }
 
     // this method can only return the event names; you cannot define a
@@ -37,6 +44,7 @@ class DatabaseActivitySubscriber implements EventSubscriber
     public function postPersist(LifecycleEventArgs $args)
     {
         $this->logActivity('persist', $args);
+        $this->sendEmailActivity($args);
     }
 
     public function postRemove(LifecycleEventArgs $args)
@@ -66,4 +74,19 @@ class DatabaseActivitySubscriber implements EventSubscriber
         $this->logger->info("User {$userId} {$action} the entity {$entityName} with ID {$entity->getId()}");
 
     }
+
+    /**
+     * Send the specified quotation to the customer
+     */
+    public function sendEmailActivity(LifecycleEventArgs $args)
+    {
+        $entity = $args->getObject();
+
+        if (!$entity instanceof Quotation) {
+            return;
+        }
+
+        $this->mailing->sendQuotationEmail($entity);
+    }
+
 }

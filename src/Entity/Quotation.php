@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -30,6 +31,13 @@ class Quotation
      * @Groups({"quotation", "user", "project", "customer"})
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     * @Groups({"quotation", "user", "project", "customer"})
+     * @ApiProperty(writable=false)
+     */
+    private $reference;
 
     /**
      * @ORM\Column(type="string")
@@ -73,6 +81,30 @@ class Quotation
     private $project;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Module", mappedBy="quotations")
+     * @Groups({"project", "customer", "quotation", "quotation:input"})
+     */
+    private $modules;
+
+    /**
+     * @ORM\Column(type="float")
+     * @Groups({"project",  "quotation", "quotation:input"})
+     */
+    private $travelCost = 0.00;
+
+    /**
+     * @ORM\Column(type="float")
+     * @Groups({"project",  "quotation", "quotation:input"})
+     */
+    private $vat = 20.00;
+
+    public function __construct()
+    {
+        $this->reference = strtoupper(uniqid("qt-"));
+        $this->modules = new ArrayCollection();
+    }
+
+    /**
      * @return array
      */
     public static function getStateList()
@@ -82,6 +114,18 @@ class Quotation
             "WAITING",
             "VALIDATED"
         ];
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(string $reference): self
+    {
+        $this->reference = $reference;
+
+        return $this;
     }
 
     public function getId(): ?int
@@ -136,4 +180,73 @@ class Quotation
 
         return $this;
     }
+
+    /**
+     * @return Collection|Module[]
+     */
+    public function getModules(): Collection
+    {
+        return $this->modules;
+    }
+
+    public function addModule(Module $module): self
+    {
+        if (!$this->modules->contains($module)) {
+            $this->modules[] = $module;
+            $module->addQuotation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModule(Module $module): self
+    {
+        if ($this->modules->contains($module)) {
+            $this->modules->removeElement($module);
+            $module->removeQuotation($this);
+        }
+
+        return $this;
+    }
+
+    public function getTravelCost(): ?float
+    {
+        return $this->travelCost;
+    }
+
+    public function setTravelCost(float $travelCost): self
+    {
+        $this->travelCost = $travelCost;
+
+        return $this;
+    }
+
+    public function getVat(): ?float
+    {
+        return $this->vat;
+    }
+
+    public function setVat(float $vat): self
+    {
+        $this->vat = $vat;
+
+        return $this;
+    }
+
+    public function getHTPrice(): ?float 
+    {
+        $price = 0.00;
+        foreach($this->getModules() as $module) {
+            $price += (float) $module->getHTPrice();
+        }
+        $price += $this->getTravelCost();
+        
+        return $price;
+    }
+
+    public function getTTCPrice(): ?float 
+    {
+        return (float) $this->getHTPrice() + ($this->getHTPrice() * ($this->getVat() / 100));
+    }
+
 }

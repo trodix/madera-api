@@ -24,3 +24,9 @@
 ### [See how to send authenticated request to the api](Documentation/Api.md)
 
 ### [See the data model](Documentation/DataModel.md)
+
+### [Custom routes](Documentation/CustomRoutes.md)
+
+### [Logger](Documentation/Logger.md)
+
+### [Tests](Documentation/Tests.md)
