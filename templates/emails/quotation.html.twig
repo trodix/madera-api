@@ -1,0 +1,67 @@
+{% apply inline_css(source('@css/email.css')) %}
+
+<div class="wrapper">
+
+  <div class="container">
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <a href="#">
+              <img src="{{ email.image('@images/logo.png') }}" width="200px" alt="Logo">
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h1 class="center">Votre nouveau devis</h1>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>Bonjour {{ quotation.project.customer.firstname }} {{ quotation.project.customer.lastname }},</p>
+            <br>
+            <p>
+              Vous avez demandé un devis pour une maison modulaire, vous pouvez dès à présent retrouver le document en pièce-jointe.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h2>Informations relatives au devis</h2>
+            <br>
+            <p><strong>Référence :</strong> {{ quotation.reference }}</p>
+            <p><strong>N° Client :</strong> {{ quotation.project.customer.reference }}</p>
+            <p><strong>Crée le :</strong> {{ quotation.createdAt|date('d/m/Y') }}</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>Pour toute demande de contact, veuillez nous appeler au <a href="tel:0301020304">03 01 02 03 04</a>.</p>
+            <br>
+            <p>L'équipe Madera vous remercie pour votre confiance.</p>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <p class="rgpd">
+              Les informations recueillies lors de la procédure de demande de devis seront enregistrées dans un fichier informatisé par le responsable des traitements de Madera, pour la prise de contact et la relation commerciale pouvant en découler. Elles seront conservées pendant 3 ans et sont destinées exclusivement à Madera. Les informations recueillies ne feront l’objet d’aucune cession, sauf à des tiers autorisés. Conformément à la Loi Informatique et Libertés du 6 janvier 1978, et au Règlement Général sur la protection des données personnelles du 27 avril 2016, vous pouvez exercer votre droit d’accès, d’opposition, de rectification, de portabilité et de suppression sur les données vous concernant, en contactant Madera, Acti Est - ZA Les ajoncs 85000 La Roche sur Yon.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="center secondary-text">
+            <p>Madera, Acti Est - ZA Les ajoncs 85000 La Roche sur Yon.</p>
+            <p>
+              <a href="#">Se désinscrire</a>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+{% endapply %}

@@ -40,12 +40,13 @@ class AuthenticationSuccessListener
         // note : le refresh token est également automatiquement ajouté par JWTRefreshTokenBundle
 
         $data = $event->getData();
-        $user = $event->getUser();
+        $userSession = $event->getUser();
 
-        if (!$user instanceof UserInterface) {
+        if (!$userSession instanceof UserInterface) {
             return;
         }
 
+        $user = $this->repoUser->loadUserByUsername($userSession->getUsername());
 
         // Ajout les données supplémentaires en data
         $data['user'] = array(

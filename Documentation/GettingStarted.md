@@ -41,4 +41,4 @@ Default admin user created:
 - username: `admin@madera.com`
 - password: `madera2019`
 
-### Go to <http://localhost:8000/api/>
+### Go to <http://localhost:8000/v1>

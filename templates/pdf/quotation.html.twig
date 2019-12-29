@@ -1,0 +1,149 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Devis n°{{ quotation.reference }} {% endblock %}
+
+{% block stylesheets %}
+
+<style>
+  .border {
+    border-collapse: collapse;
+  }
+  .border tbody, .border thead, .border td, thead th {
+    border: 1px solid black;
+    padding: 0 5px;
+  }
+  .right {
+    text-align: right;
+  }
+  #footer-total th {
+    text-align: right;
+    padding: 0 10px 0 0;
+  }
+  #footer-total {
+    margin-top: 30px;
+  }
+  #head {
+    width: 100%;
+    margin-bottom: 50px;
+  }
+  #body {
+    text-align: center;
+  }
+  #body #products {
+    width: 100%;
+  }
+  #info-madera {
+    /*padding: 0 300px 0 0;*/
+  }
+  #info-customer {
+    padding: 0 0 0 280px;
+    
+    top: 0;
+    right: 0;
+
+    text-align: right;
+  }
+  .nowrap {
+    white-space: nowrap;
+  }
+</style>
+
+{% endblock %}
+
+{% block body %}
+
+{# Header #}
+<div id="head">
+  <table>
+    <tr>
+      <td id="info-madera">
+        <img src="assets/images/logo.png" alt="Logo Madera" width="200px"><br>
+        {{ quotation.project.users[0].sites[0].name }}<br>
+        {{ quotation.project.users[0].sites[0].address }}<br>
+        {{ quotation.project.users[0].sites[0].zipcode }}
+        {{ quotation.project.users[0].sites[0].city }},
+        {{ quotation.project.users[0].sites[0].country }}
+        <br><br>
+        <p><strong>Crée le :</strong> {{ quotation.createdAt|date('d/m/Y') }}</p>
+        <p class="nowrap"><strong>Réf. Projet :</strong> {{ quotation.project.reference }}</p>
+      </td>
+      <td id="info-customer">
+      <img src="{{ qrcode }}" alt="QrCode" width="60px"><br>
+        {{ quotation.project.customer.reference }}<br>
+        {{ quotation.project.customer.lastname }}
+        {{ quotation.project.customer.firstname }}<br>
+        {{ quotation.project.customer.address }},<br>
+        {{ quotation.project.customer.zipcode }}
+        {{ quotation.project.customer.city }}, 
+        {{ quotation.project.customer.country }}<br>
+        {{ quotation.project.customer.email }}<br>
+        {{ quotation.project.customer.phone }}<br>
+      </td>
+    </tr>
+  </table>
+</div>
+{# /Header #}
+
+{# Body #}
+<div id="body">
+  <h1>Devis n°{{ quotation.reference }}</h1>
+
+  <table id="products" class="border">
+    <thead>
+      <tr style="background: #b0d87a;">
+        <th>N°</th>
+        <th>Référence</th>
+        <th>Intitulé</th>
+        <th>Quantité</th>
+        <th>Prix unitaire HT</th>
+        <th>Total HT</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for module in quotation.modules %}
+      <tr style="background: #E3E3E3;">
+        <td>{{ loop.index }}</td>
+        <td>{{ module.reference }}</td>
+        <td>{{ module.name }}</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td class="right">{{ module.HTPrice|number_format(2, ',', '.') }} €</td>
+      </tr>
+        {% for moduleComponent in module.moduleComponents %}
+          <tr style="background: #F5F5F5;">
+            <td colspan="1"></td>
+            <td>{{ moduleComponent.component.reference }}</td>
+            <td>{{ moduleComponent.component.name }}</td>
+            <td align="center">{{ moduleComponent.quantity }}</td>
+            <td class="right">{{ moduleComponent.component.unitPrice|number_format(2, ',', '.') }} €</td>
+            <td class="right">{{ (moduleComponent.component.unitPrice * moduleComponent.quantity)|number_format(2, ',', '.') }} €</td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+    </tbody>
+    {# /Body #}
+    {# Footer #}
+    <tfoot id="footer-total">
+      <tr>
+        <th colspan="5" scope="row">Coût de transport</th>
+        <td class="right">{{ quotation.travelCost|number_format(2, ',', '.') }} €</td>
+      </tr>
+      <tr>
+        <th colspan="5" scope="row">Total HT</th>
+        <td class="right">{{ quotation.HTPrice|number_format(2, ',', '.') }} €</td>
+      </tr>
+      <tr>
+        <th colspan="5" scope="row">Taux TVA</th>
+        <td class="right">{{ quotation.vat|number_format(2, ',', '.') }} %</td>
+      </tr>
+      <tr>
+        <th colspan="5" scope="row">Total TTC</th>
+        <td class="right" style="background: #CAEEFF; font-size: 1.3em; font-weight: bold;">{{ quotation.TTCPrice|number_format(2, ',', '.') }} €</td>
+      </tr>
+    </tfoot>
+    {# /Footer #}
+  </table>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,31 @@
+.center {
+  text-align: center;
+}
+
+.rgpd {
+  font-size: 9px;
+  color: #a3a3a3;
+  text-align: justify;
+}
+
+a {
+  color: #a2c037;
+}
+
+.wrapper {
+  background-color: #f3f3f3;
+  padding: 30px 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.secondary-text {
+  color: #a3a3a3;
+}
