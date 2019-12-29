@@ -53,6 +53,10 @@ security:
         #     anonymous: true
         ## *** End ***
 
+        home:
+            pattern:   ^/$
+            anonymous: true
+
         api:
             pattern:   ^/v1
             stateless: true
