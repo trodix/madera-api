@@ -10,6 +10,7 @@ class CustomerFixtures extends Fixture
 {
     public const CUSTOMER_1_REFERENCE = 'customer-1';
     public const CUSTOMER_2_REFERENCE = 'customer-2';
+    public const CUSTOMER_3_REFERENCE = 'customer-3';
 
     public function load(ObjectManager $manager)
     {
@@ -46,6 +47,25 @@ class CustomerFixtures extends Fixture
         
         $manager->persist($customer);
         $this->addReference(self::CUSTOMER_2_REFERENCE, $customer);
+
+
+
+        $customer = new Customer();
+        $customer
+            // ->setReference("C000001") // Auto-generated bu uniqid
+            ->setLastName("Hyst")
+            ->setFirstName("Eric")
+            ->setCompanyName("CESI Dijon")
+            ->setPhone("0669696969")
+            ->setEmail("hyst.eric@gmail.com")
+            ->setAddress("4 Rue de la jolie flamme")
+            ->setCity("Dijon")
+            ->setCountry("France")
+            ->setZipcode("21000")
+        ;
+
+        $manager->persist($customer);
+        $this->addReference(self::CUSTOMER_3_REFERENCE, $customer);
 
 
 

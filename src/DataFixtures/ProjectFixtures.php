@@ -16,6 +16,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
     public const PROJECT_1_REFERENCE = 'project-1';
     public const PROJECT_2_REFERENCE = 'project-2';
     public const PROJECT_3_REFERENCE = 'project-3';
+    public const PROJECT_4_REFERENCE = 'project-4';
 
     public function load(ObjectManager $manager)
     {
@@ -53,6 +54,18 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         
         $manager->persist($project);
         $this->addReference(self::PROJECT_3_REFERENCE, $project);
+
+
+        $project = new Project();
+        $project
+            ->setName("Domaine du vieux puit")
+            // ->setReference("H000004") // Auto-generated bu uniqid
+            ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_3_REFERENCE))
+            ->addUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
+        ;
+        
+        $manager->persist($project);
+        $this->addReference(self::PROJECT_4_REFERENCE, $project);
 
 
 
