@@ -130,6 +130,7 @@ class Customer
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $companyName;
 
