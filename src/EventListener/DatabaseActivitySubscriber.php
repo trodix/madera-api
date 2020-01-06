@@ -78,11 +78,8 @@ class DatabaseActivitySubscriber implements EventSubscriber
     /**
      * Send the specified quotation to the customer
      */
-    public function sendEmailActivity(string $action, LifecycleEventArgs $args)
+    public function sendEmailActivity(LifecycleEventArgs $args)
     {
-        if($action !== "persist")
-            return;
-
         $entity = $args->getObject();
 
         if (!$entity instanceof Quotation) {
