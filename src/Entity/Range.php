@@ -22,7 +22,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Range
 {
-    use SoftDeleteableEntity;
     
     /**
      * @ORM\Id()
@@ -54,6 +53,12 @@ class Range
      * @Groups({"range"})
      */
     private $modules;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"range", "module", "project"})
+     */
+    private $deletedAt;
 
     public function __construct()
     {
@@ -95,6 +100,18 @@ class Range
     public function getModules(): Collection
     {
         return $this->modules;
+    }
+
+    public function getDeletedAt()
+    {
+        return $this->deletedAt();
+    }
+
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
     }
 
     public function addModule(Module $module): self

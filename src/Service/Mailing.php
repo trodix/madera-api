@@ -27,6 +27,7 @@ class Mailing {
   {
 
     $pdfStream = $this->pdfGenerator->generateQuotationFile($quotation);
+    $fileName = $quotation->getProject()->getReference().".pdf";
 
     // *** For debuging ***
     $to = 'customer.l4pc@gmail.com';
@@ -42,7 +43,7 @@ class Mailing {
       ->context([
         'quotation' => $quotation
       ])
-      ->attach($pdfStream, $quotation->getProject()->getReference(), 'application/pdf')
+      ->attach($pdfStream, $fileName, 'application/pdf')
     ;
 
     $sentEmail = $this->mailer->send($email);

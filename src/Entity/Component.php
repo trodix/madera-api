@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Component
 {
-    use SoftDeleteableEntity;
+    
 
     /**
      * @ORM\Id()
@@ -76,6 +76,12 @@ class Component
      * @Groups({"component", "component:input", "module", "project"})
      */
     private $componentSpecifications;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"component", "module", "project"})
+     */
+    private $deletedAt;
 
     public function __construct()
     {
@@ -143,6 +149,18 @@ class Component
     public function getModuleComponents(): Collection
     {
         return $this->moduleComponents;
+    }
+
+    public function getDeletedAt()
+    {
+        return $this->deletedAt();
+    }
+
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
     }
 
     public function addModuleComponent(ModuleComponent $moduleComponent): self

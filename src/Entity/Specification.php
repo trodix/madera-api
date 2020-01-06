@@ -21,7 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Specification
 {
-    use SoftDeleteableEntity;
     
     /**
      * @ORM\Id()
@@ -44,6 +43,12 @@ class Specification
      * @ORM\OneToMany(targetEntity="App\Entity\ComponentSpecification", mappedBy="specification", orphanRemoval=true)
      */
     private $componentSpecifications;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"specification", "component"})
+     */
+    private $deletedAt;
 
     public function __construct()
     {
@@ -73,6 +78,18 @@ class Specification
     public function getComponentSpecifications(): Collection
     {
         return $this->componentSpecifications;
+    }
+
+    public function getDeletedAt()
+    {
+        return $this->deletedAt();
+    }
+
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
     }
 
     public function addComponentSpecification(ComponentSpecification $componentSpecification): self

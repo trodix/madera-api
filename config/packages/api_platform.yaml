@@ -1,5 +1,5 @@
 api_platform:
-    version: '0.4.0'
+    version: '0.4.1'
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     patch_formats:

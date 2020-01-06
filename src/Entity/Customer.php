@@ -22,7 +22,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Customer
 {
-    use SoftDeleteableEntity;
     
     /**
      * @ORM\Id()
@@ -54,6 +53,12 @@ class Customer
      * @Groups({"project", "customer", "quotation", "customer:input"})
      */
     private $firstname;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"project", "customer", "quotation", "customer:input"})
+     */
+    private $companyName;
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
@@ -129,11 +134,12 @@ class Customer
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     * @Groups({"project", "customer", "quotation", "customer:input"})
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"project", "customer", "quotation"})
      */
-    private $companyName;
+    private $deletedAt;
 
+    
     public function __construct()
     {
         $this->projects = new ArrayCollection();
@@ -248,6 +254,18 @@ class Customer
     public function getProjects(): array
     {
         return $this->projects->getValues();
+    }
+
+    public function getDeletedAt()
+    {
+        return $this->deletedAt();
+    }
+
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
     }
 
     public function addProject(Project $project): self

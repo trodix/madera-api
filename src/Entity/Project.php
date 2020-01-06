@@ -23,7 +23,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class Project
 {
-    use SoftDeleteableEntity;
 
     /**
      * @ORM\Id()
@@ -87,6 +86,11 @@ class Project
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"project", "customer", "quotation"})
+     */
+    private $deletedAt;
 
     public function __construct()
     {
@@ -193,6 +197,18 @@ class Project
     public function getQuotations(): Collection
     {
         return $this->quotations;
+    }
+
+    public function getDeletedAt()
+    {
+        return $this->deletedAt();
+    }
+
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
     }
 
     public function addQuotation(Quotation $quotation): self
