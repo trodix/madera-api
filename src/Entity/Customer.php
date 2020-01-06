@@ -258,7 +258,7 @@ class Customer
 
     public function getDeletedAt()
     {
-        return $this->deletedAt();
+        return $this->deletedAt;
     }
 
     public function setDeletedAt($deletedAt)
