@@ -62,6 +62,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             // ->setReference("H000004") // Auto-generated bu uniqid
             ->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_3_REFERENCE))
             ->addUser($this->getReference(UserFixtures::USER_COMMERCIAL_REFERENCE))
+            ->setDeletedAt(new \DateTime)
         ;
         
         $manager->persist($project);

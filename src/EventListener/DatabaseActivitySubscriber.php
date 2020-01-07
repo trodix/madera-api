@@ -7,6 +7,7 @@ use Doctrine\ORM\Events;
 use App\Entity\Quotation;
 use Symfony\Bridge\Monolog\Logger;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Symfony\Component\Security\Core\Security;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 
@@ -35,6 +36,7 @@ class DatabaseActivitySubscriber implements EventSubscriber
             Events::postPersist,
             Events::postRemove,
             Events::postUpdate,
+            EVents::preFlush
         ];
     }
 
@@ -57,6 +59,27 @@ class DatabaseActivitySubscriber implements EventSubscriber
         $this->logActivity('update', $args);
     }
 
+
+    /**
+     * SoftDelete the entity by adding deletedAt date
+     */
+    public function preFlush(PreFlushEventArgs $event)
+    {
+        $em = $event->getEntityManager();
+        foreach ($em->getUnitOfWork()->getScheduledEntityDeletions() as $object) {
+            if(method_exists($object, "getDeletedAt")) {
+                if ($object->getDeletedAt() instanceof \Datetime) {
+                    continue; // hard remove the entity is it's already archived
+                } else {
+                    $object->setDeletedAt(new \DateTime());
+                    $em->merge($object);
+                    $em->persist($object);
+                }
+            }
+        }
+    }
+
+    
     private function logActivity(string $action, LifecycleEventArgs $args)
     {
         $entity = $args->getObject();
@@ -86,7 +109,11 @@ class DatabaseActivitySubscriber implements EventSubscriber
             return;
         }
 
-        $this->mailing->sendQuotationEmail($entity);
+        if(!$entity->getModules()->isEmpty()) {
+            $this->mailing->sendQuotationEmail($entity);
+        } else {
+            // throw new \Exception("Can't send a quotation with no modules");
+        }
     }
 
 }

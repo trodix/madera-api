@@ -3,27 +3,29 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Traits\SoftDeleteableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\ExistsFilter;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ComponentRepository")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ApiResource(
  *      normalizationContext={"groups"={"component"}},
  *      denormalizationContext={"groups"={"component:input"}}
  * )
+ * @ApiFilter(ExistsFilter::class, properties={"deletedAt"})
  */
 class Component
 {
-    
+    use SoftDeleteableEntity;
 
     /**
      * @ORM\Id()
@@ -81,7 +83,7 @@ class Component
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"component", "module", "project"})
      */
-    private $deletedAt;
+    protected $deletedAt;
 
     public function __construct()
     {
@@ -149,18 +151,6 @@ class Component
     public function getModuleComponents(): Collection
     {
         return $this->moduleComponents;
-    }
-
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
-    }
-
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
     }
 
     public function addModuleComponent(ModuleComponent $moduleComponent): self

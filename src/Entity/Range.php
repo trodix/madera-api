@@ -3,25 +3,28 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Traits\SoftDeleteableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\ExistsFilter;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RangeRepository")
  * @ORM\Table(name="Range_Module")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ApiResource(
  *      normalizationContext={"groups"={"range"}},
  *      denormalizationContext={"groups"={"range:input"}}
  * )
+ * @ApiFilter(ExistsFilter::class, properties={"deletedAt"})
  */
 class Range
 {
+    use SoftDeleteableEntity;
     
     /**
      * @ORM\Id()
@@ -49,7 +52,7 @@ class Range
     private $windowFrame;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Module", mappedBy="moduleRange", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Module", mappedBy="moduleRange")
      * @Groups({"range"})
      */
     private $modules;
@@ -58,7 +61,7 @@ class Range
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"range", "module", "project"})
      */
-    private $deletedAt;
+    protected $deletedAt;
 
     public function __construct()
     {
@@ -100,18 +103,6 @@ class Range
     public function getModules(): Collection
     {
         return $this->modules;
-    }
-
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
-    }
-
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
     }
 
     public function addModule(Module $module): self

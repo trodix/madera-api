@@ -47,12 +47,6 @@ security:
             stateless: true
             anonymous: true
 
-        ## *** For debuging ***
-        # file:
-        #     pattern: ^/v1/file
-        #     anonymous: true
-        ## *** End ***
-
         home:
             pattern:   ^/$
             anonymous: true
