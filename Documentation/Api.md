@@ -78,3 +78,8 @@
 If your token has expired, you will not be able to send a authenticated request to the API.
 
 In order to refresh your token, send a request to `/v1/token/refresh` or request a new one at `/v1/login_check`.
+
+## Filters
+
+- Get an archived entity `/v1/entity?exists[deletedAt]=true`
+- Get a not archived entity `/v1/entity?exists[deletedAt]=false`
