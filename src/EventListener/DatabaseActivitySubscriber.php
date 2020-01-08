@@ -109,11 +109,7 @@ class DatabaseActivitySubscriber implements EventSubscriber
             return;
         }
 
-        if(!$entity->getModules()->isEmpty()) {
-            $this->mailing->sendQuotationEmail($entity);
-        } else {
-            // throw new \Exception("Can't send a quotation with no modules");
-        }
+        $this->mailing->sendQuotationEmail($entity);
     }
 
 }

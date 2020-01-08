@@ -5,10 +5,12 @@ namespace App\Service;
 use App\Entity\Quotation;
 use App\Service\PDFGenerator;
 use Symfony\Component\Mime\Address;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Mailer\SentMessage;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Mailing {
 
@@ -25,28 +27,38 @@ class Mailing {
 
   public function sendQuotationEmail(Quotation $quotation, String $from = 'madera.l4pc@gmail.com')
   {
+    if(!$quotation->getModules()->isEmpty()) {
 
-    $pdfStream = $this->pdfGenerator->generateQuotationFile($quotation);
-    $fileName = $quotation->getProject()->getReference().".pdf";
+      $pdfStream = $this->pdfGenerator->generateQuotationFile($quotation);
+      $fileName = $quotation->getProject()->getReference().".pdf";
+  
+      // *** For debuging ***
+      $to = 'customer.l4pc@gmail.com';
+      // *** End ***
+  
+      // $to = $quotation->getProject()->getCustomer()->getEmail();
+  
+      $email = (new TemplatedEmail())
+        ->from(new Address($from))
+        ->to(new Address($to))
+        ->subject('Votre nouveau devis')
+        ->htmlTemplate('emails/quotation.html.twig')
+        ->context([
+          'quotation' => $quotation
+        ])
+        ->attach($pdfStream, $fileName, 'application/pdf')
+      ;
+  
+      $sentEmail = $this->mailer->send($email);
 
-    // *** For debuging ***
-    $to = 'customer.l4pc@gmail.com';
-    // *** End ***
+    } else {
+      $httpResponse = new JsonResponse(
+        ["message" => "Can't send a quotation email without modules"],
+        Response::HTTP_NOT_ACCEPTABLE
+      );
 
-    // $to = $quotation->getProject()->getCustomer()->getEmail();
-
-    $email = (new TemplatedEmail())
-      ->from(new Address($from))
-      ->to(new Address($to))
-      ->subject('Votre nouveau devis')
-      ->htmlTemplate('emails/quotation.html.twig')
-      ->context([
-        'quotation' => $quotation
-      ])
-      ->attach($pdfStream, $fileName, 'application/pdf')
-    ;
-
-    $sentEmail = $this->mailer->send($email);
+      $httpResponse->send();
+    }
   }
 
 }
