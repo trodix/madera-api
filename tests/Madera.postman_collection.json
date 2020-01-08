@@ -315,13 +315,13 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/sites/1.json",
+											"raw": "{{url}}/sites/4.json",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"sites",
-												"1.json"
+												"4.json"
 											]
 										}
 									},
@@ -2272,6 +2272,39 @@
 								"method": "GET",
 								"header": [],
 								"url": {
+									"raw": "{{url}}/file/quotation/3",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"file",
+										"quotation",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a .PDF not valid quotation file",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f6a262cc-ea1d-4c28-ba5f-aad69254aa0d",
+										"exec": [
+											"pm.test(\"Status code is 406\", function () {",
+											"    pm.response.to.have.status(406);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
 									"raw": "{{url}}/file/quotation/1",
 									"host": [
 										"{{url}}"
@@ -2305,14 +2338,47 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/mailing/quotation/4",
+									"raw": "{{url}}/mailing/quotation/3",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"mailing",
 										"quotation",
-										"4"
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send email not valid quotation to customer",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "cf0a0f32-34fa-4000-a04f-4822de433c30",
+										"exec": [
+											"pm.test(\"Status code is 406\", function () {",
+											"    pm.response.to.have.status(406);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/mailing/quotation/2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"mailing",
+										"quotation",
+										"2"
 									]
 								}
 							},

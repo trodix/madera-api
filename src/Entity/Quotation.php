@@ -248,6 +248,7 @@ class Quotation
             $price += (float) $module->getHTPrice();
         }
         $price += $this->getTravelCost();
+        $price += $this->getProject()->getUsers()[0]->getSites()[0]->getLabor();
         
         return $price;
     }
