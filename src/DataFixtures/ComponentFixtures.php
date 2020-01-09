@@ -44,6 +44,9 @@ class ComponentFixtures extends Fixture
     public const COMPONENT_34_REFERENCE = 'component-34';
     public const COMPONENT_35_REFERENCE = 'component-35';
     public const COMPONENT_36_REFERENCE = 'component-36';
+    public const COMPONENT_37_REFERENCE = 'component-37';
+    public const COMPONENT_38_REFERENCE = 'component-38';
+    public const COMPONENT_39_REFERENCE = 'component-39';
 
     public function load(ObjectManager $manager)
     {
@@ -157,7 +160,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Vis placo inox 5x35 x100")
+            ->setName("Vis placo inox 5x35 x20")
             ->setUnitPrice(5.32)
             ->setFinish("Standard");
 
@@ -166,7 +169,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Vis placo inox 5x55 x100")
+            ->setName("Vis placo inox 5x55 x20")
             ->setUnitPrice(7.64)
             ->setFinish("Premium");
 
@@ -175,7 +178,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Clou 7x55 inox x 100")
+            ->setName("Clou 7x55 inox x 50")
             ->setUnitPrice(6.03)
             ->setFinish("Standard");
 
@@ -184,7 +187,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Clou 7x75 inox x 100")
+            ->setName("Clou 7x75 inox x 50")
             ->setUnitPrice(8.43)
             ->setFinish("Premium");
 
@@ -229,7 +232,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Sac enduit à bande 5kg")
+            ->setName("Sac enduit à bande 250g")
             ->setUnitPrice(8.67)
             ->setFinish("Premium");
 
@@ -239,7 +242,7 @@ class ComponentFixtures extends Fixture
         $component = new Component();
         $component
             ->setName("Bande à placo")
-            ->setUnitPrice(8.67)
+            ->setUnitPrice(0.67)
             ->setFinish("Standard");
 
         $manager->persist($component);
@@ -301,8 +304,8 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Scotch pare-vapeur 10m")
-            ->setUnitPrice(53.32)
+            ->setName("Scotch pare-vapeur 5m")
+            ->setUnitPrice(23.32)
             ->setFinish("Premium");
 
         $manager->persist($component);
@@ -370,6 +373,33 @@ class ComponentFixtures extends Fixture
 
         $manager->persist($component);
         $this->addReference(self::COMPONENT_36_REFERENCE, $component);
+
+        $component = new Component();
+        $component
+            ->setName("Toit plat")
+            ->setUnitPrice(155.24)
+            ->setFinish("Standard");
+
+        $manager->persist($component);
+        $this->addReference(self::COMPONENT_37_REFERENCE, $component);
+
+        $component = new Component();
+        $component
+            ->setName("Toit classique")
+            ->setUnitPrice(252.78)
+            ->setFinish("Premium");
+
+        $manager->persist($component);
+        $this->addReference(self::COMPONENT_38_REFERENCE, $component);
+
+        $component = new Component();
+        $component
+            ->setName("Plafond")
+            ->setUnitPrice(118.04)
+            ->setFinish("Standard");
+
+        $manager->persist($component);
+        $this->addReference(self::COMPONENT_39_REFERENCE, $component);
 
         $manager->flush();
     }
