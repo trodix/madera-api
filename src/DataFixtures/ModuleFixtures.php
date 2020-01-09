@@ -672,7 +672,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
 
         $module = new Module();
         $module
-            ->setName("Mur intérieur Toilette Ouest")
+            ->setName("Mur intérieur Divers Est")
             ->setUsageUnit("mm")
             ->setModuleRange($this->getReference(RangeFixtures::RANGE_1_REFERENCE))
         ;
@@ -681,7 +681,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
 
         $module = new Module();
         $module
-            ->setName("Mur intérieur Toilette Ouest")
+            ->setName("Mur intérieur Divers Ouest")
             ->setUsageUnit("mm")
             ->setModuleRange($this->getReference(RangeFixtures::RANGE_1_REFERENCE))
         ;
@@ -1338,7 +1338,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
 
         $module = new Module();
         $module
-            ->setName("Mur Extérieur Toilette Ouest")
+            ->setName("Mur Extérieur Divers Ouest")
             ->setUsageUnit("mm")
             ->setModuleRange($this->getReference(RangeFixtures::RANGE_1_REFERENCE))
         ;
@@ -1347,7 +1347,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
 
         $module = new Module();
         $module
-            ->setName("Mur Extérieur Toilette Ouest")
+            ->setName("Mur Extérieur Divers Ouest")
             ->setUsageUnit("mm")
             ->setModuleRange($this->getReference(RangeFixtures::RANGE_1_REFERENCE))
         ;

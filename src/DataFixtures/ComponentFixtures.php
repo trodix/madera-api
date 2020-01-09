@@ -52,7 +52,7 @@ class ComponentFixtures extends Fixture
     {
         $component = new Component();
         $component
-            ->setName("Laine de verre 250x120x14")
+            ->setName("Laine de verre")
             ->setUnitPrice(15.15)
             ->setFinish("Standard");
 
@@ -61,7 +61,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Laine de roche 250x120x14")
+            ->setName("Laine de roche")
             ->setUnitPrice(17.15)
             ->setFinish("Standard");
 
@@ -70,7 +70,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Laine de coton 250x120x14")
+            ->setName("Laine de coton")
             ->setUnitPrice(33.44)
             ->setFinish("Premium");
 
@@ -79,7 +79,7 @@ class ComponentFixtures extends Fixture
         
         $component = new Component();
         $component
-            ->setName("Bloc de paille 250x120x14")
+            ->setName("Bloc de paille")
             ->setUnitPrice(25.57)
             ->setFinish("Standard");
 
@@ -88,7 +88,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Mousse expansive 2,5L")
+            ->setName("Mousse expansive 1,5L")
             ->setUnitPrice(22.98)
             ->setFinish("Standard");
 
@@ -97,7 +97,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Plaque de platre 250x120x1.3")
+            ->setName("Plaque de platre")
             ->setUnitPrice(11.89)
             ->setFinish("Standard");
 
@@ -106,7 +106,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Plaque de platre hydrofuge 250x120x1.3")
+            ->setName("Plaque de platre hydrofuge")
             ->setUnitPrice(18.68)
             ->setFinish("Standard");
 
@@ -115,7 +115,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Plaque de platre acoustique 250x120x1.5")
+            ->setName("Plaque de platre acoustique")
             ->setUnitPrice(23.43)
             ->setFinish("Premium");
 
@@ -124,7 +124,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Plaque de platre avec polystyrène 250x120x15")
+            ->setName("Plaque de platre avec polystyrène")
             ->setUnitPrice(30.28)
             ->setFinish("Standard");
 
@@ -133,7 +133,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Rail 240x10x10")
+            ->setName("Rail x 2")
             ->setUnitPrice(7.08)
             ->setFinish("Standard");
 
@@ -142,7 +142,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Montant 250x10x10")
+            ->setName("Montant x 3")
             ->setUnitPrice(6.64)
             ->setFinish("Standard");
 
@@ -151,8 +151,8 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Tasseau chêne 250x10x10")
-            ->setUnitPrice(10.28)
+            ->setName("Tasseau chêne x ")
+            ->setUnitPrice(30.28)
             ->setFinish("Premium");
 
         $manager->persist($component);
@@ -259,7 +259,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Peinture blanc MAT 5L")
+            ->setName("Peinture blanc MAT")
             ->setUnitPrice(21.57)
             ->setFinish("Standard");
 
@@ -268,7 +268,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Peinture blanc Brillant 5L")
+            ->setName("Peinture blanc Brillant")
             ->setUnitPrice(33.32)
             ->setFinish("Premium");
 
@@ -277,7 +277,7 @@ class ComponentFixtures extends Fixture
 
         $component = new Component();
         $component
-            ->setName("Peinture blanc Hydrofuge 5L")
+            ->setName("Peinture blanc Hydrofuge")
             ->setUnitPrice(43.32)
             ->setFinish("Premium");
 
