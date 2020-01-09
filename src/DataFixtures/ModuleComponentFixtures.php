@@ -974,6 +974,9 @@ class ModuleComponentFixtures extends Fixture implements DependentFixtureInterfa
     public const MODULE_COMPONENT_960_REFERENCE = 'module-component-960';
     public const MODULE_COMPONENT_961_REFERENCE = 'module-component-961';
     public const MODULE_COMPONENT_962_REFERENCE = 'module-component-962';
+    public const MODULE_COMPONENT_963_REFERENCE = 'module-component-963';
+    public const MODULE_COMPONENT_964_REFERENCE = 'module-component-964';
+    public const MODULE_COMPONENT_965_REFERENCE = 'module-component-965';
 
     public function load(ObjectManager $manager)
     {
@@ -9635,6 +9638,33 @@ class ModuleComponentFixtures extends Fixture implements DependentFixtureInterfa
         ;
         $manager->persist($moduleComponent);
         $this->addReference(self::MODULE_COMPONENT_962_REFERENCE, $moduleComponent);
+
+        $moduleComponent = new ModuleComponent();
+        $moduleComponent
+             ->setComponent($this->getReference(ComponentFixtures::COMPONENT_37_REFERENCE))
+             ->setModule($this->getReference(ModuleFixtures::MODULE_MUR_INTERIEUR_149_REFERENCE))
+             ->setQuantity("1")
+        ;
+        $manager->persist($moduleComponent);
+        $this->addReference(self::MODULE_COMPONENT_963_REFERENCE, $moduleComponent);
+
+        $moduleComponent = new ModuleComponent();
+        $moduleComponent
+             ->setComponent($this->getReference(ComponentFixtures::COMPONENT_38_REFERENCE))
+             ->setModule($this->getReference(ModuleFixtures::MODULE_MUR_INTERIEUR_150_REFERENCE))
+             ->setQuantity("1")
+        ;
+        $manager->persist($moduleComponent);
+        $this->addReference(self::MODULE_COMPONENT_964_REFERENCE, $moduleComponent);
+
+        $moduleComponent = new ModuleComponent();
+        $moduleComponent
+             ->setComponent($this->getReference(ComponentFixtures::COMPONENT_39_REFERENCE))
+             ->setModule($this->getReference(ModuleFixtures::MODULE_MUR_INTERIEUR_151_REFERENCE))
+             ->setQuantity("1")
+        ;
+        $manager->persist($moduleComponent);
+        $this->addReference(self::MODULE_COMPONENT_965_REFERENCE, $moduleComponent);
 
         ////////////////////////////////
         $manager->flush();
