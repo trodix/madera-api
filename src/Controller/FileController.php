@@ -6,6 +6,7 @@ use App\Entity\Quotation;
 use App\Service\PDFGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -19,7 +20,15 @@ class FileController extends AbstractController
      */
     public function generateQuotationPdf(PDFGenerator $pdfGenerator, Quotation $quotation)
     {
-        return new Response($pdfGenerator->generateQuotationFile($quotation), Response::HTTP_OK, [
+        $pdfStream = $pdfGenerator->generateQuotationFile($quotation);
+        if(false === $pdfStream) {
+            return new JsonResponse(
+                ["message" => "Invalid quotation"],
+                Response::HTTP_NOT_ACCEPTABLE
+            );
+        }
+
+        return new Response($pdfStream, Response::HTTP_OK, [
             'Content-Type' => 'application/pdf'
         ]);
     }

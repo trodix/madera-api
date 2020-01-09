@@ -125,6 +125,10 @@
     {# Footer #}
     <tfoot id="footer-total">
       <tr>
+        <th colspan="5" scope="row">Coût de main d'oeuvre</th>
+        <td class="right">{{ quotation.project.users[0].sites[0].labor|number_format(2, ',', '.') }} €</td>
+      </tr>
+      <tr>
         <th colspan="5" scope="row">Coût de transport</th>
         <td class="right">{{ quotation.travelCost|number_format(2, ',', '.') }} €</td>
       </tr>

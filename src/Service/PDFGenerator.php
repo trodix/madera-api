@@ -7,6 +7,7 @@ use Dompdf\Options;
 use Twig\Environment;
 use App\Entity\Quotation;
 use chillerlan\QRCode\QRCode;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class PDFGenerator {
@@ -22,10 +23,12 @@ class PDFGenerator {
    * Generate a quotation as PDF
    * @var Quotation $quotation
    * @var bool $render Render the file in a new Response
-   * @return string|Response the PDF file as string or a new response with the pdf attached
+   * @return string|Response|bool the PDF file as string or a new response with the pdf attached
    */
   public function generateQuotationFile(Quotation $quotation, bool $render = false)
   {
+
+    if(false === $this->isValidQuotation($quotation)) return false;
 
     $options = new Options();
     $options->setIsRemoteEnabled(true);
@@ -55,6 +58,21 @@ class PDFGenerator {
     
     return $dompdf->output();;
 
+  }
+
+  private function isValidQuotation(Quotation $quotation): ?bool {
+    
+    if(
+      $quotation !== null
+      && $quotation->getProject() !== null 
+      && $quotation->getProject()->getUsers()->count() > 0
+      && $quotation->getProject()->getUsers()[0]->getSites()->count() > 0
+      && $quotation->getModules()->count() > 0
+      ) {
+      return true;
+    }
+
+    return false;
   }
 
 }
