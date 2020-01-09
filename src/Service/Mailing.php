@@ -25,11 +25,13 @@ class Mailing {
     $this->pdfGenerator = $pdfGenerator;
   }
 
-  public function sendQuotationEmail(Quotation $quotation, String $from = 'madera.l4pc@gmail.com')
+  public function sendQuotationEmail(Quotation $quotation, String $from = 'madera.l4pc@gmail.com'): ?bool
   {
     if(!$quotation->getModules()->isEmpty()) {
 
       $pdfStream = $this->pdfGenerator->generateQuotationFile($quotation);
+      if(false === $pdfStream) return false;
+
       $fileName = $quotation->getProject()->getReference().".pdf";
   
       // *** For debuging ***
@@ -49,16 +51,13 @@ class Mailing {
         ->attach($pdfStream, $fileName, 'application/pdf')
       ;
   
-      $sentEmail = $this->mailer->send($email);
+      $this->mailer->send($email);
 
-    } else {
-      $httpResponse = new JsonResponse(
-        ["message" => "Can't send a quotation email without modules"],
-        Response::HTTP_NOT_ACCEPTABLE
-      );
+      return true;
 
-      $httpResponse->send();
     }
+
+    return false;
   }
 
 }
