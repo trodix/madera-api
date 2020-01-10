@@ -83,7 +83,7 @@ class Quotation
     private $project;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Module", mappedBy="quotations")
+     * @ORM\OneToMany(targetEntity="App\Entity\Module", mappedBy="quotation")
      * @Groups({"project", "customer", "quotation", "quotation:input"})
      */
     private $modules;
@@ -201,7 +201,7 @@ class Quotation
     {
         if (!$this->modules->contains($module)) {
             $this->modules[] = $module;
-            $module->addQuotation($this);
+            $module->setQuotation($this);
         }
 
         return $this;

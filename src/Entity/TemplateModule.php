@@ -17,35 +17,33 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\ExistsFilter;
 
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ModuleRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\TemplateModuleRepository")
  * @ApiResource(
- *      normalizationContext={"groups"={"module"}},
- *      denormalizationContext={"groups"={"module:input"}}
+ *      normalizationContext={"groups"={"template_module"}},
+ *      denormalizationContext={"groups"={"template_module:input"}}
  * )
  * @ApiFilter(ExistsFilter::class, properties={"deletedAt"})
  */
-class Module
+class TemplateModule
 {
-    use SoftDeleteableEntity;
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"module", "quotation", "project", "module_component"})
+     * @Groups({"template_module", "template_module_component"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"quotation", "module", "project", "module_component"})
+     * @Groups({"template_module","template_module:input", "template_module_component"})
      * @ApiProperty(writable=false)
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=45)
-     * @Groups({"module", "module:input", "quotation", "project", "module_component"})
+     * @Groups({"template_module","template_module:input", "template_module_component"})
      * @Assert\Type(type="string")
      * @Assert\Length(max=45)
      * @Assert\NotBlank
@@ -54,7 +52,7 @@ class Module
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"module", "module:input", "quotation", "project", "module_component"})
+     * @Groups({"template_module","template_module:input", "template_module_component"})
      * @Assert\Type(type="float")
      * @Assert\PositiveOrZero
      */
@@ -62,7 +60,7 @@ class Module
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"module", "module:input", "quotation", "project", "module_component"})
+     * @Groups({"template_module","template_module:input", "template_module_component"})
      * @Assert\Type(type="float")
      * @Assert\PositiveOrZero
      */
@@ -70,39 +68,34 @@ class Module
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
-     * @Groups({"module", "module:input", "quotation", "project", "module_component"})
+     * @Groups({"template_module", "template_module:input", "template_module_component"})
      * @Assert\Type(type="string")
      * @Assert\Length(max=15)
      */
     private $usageUnit;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Quotation", inversedBy="modules")
-     */
-    private $quotation;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Range", inversedBy="modules")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"module", "module:input", "quotation", "project", "module_component"})
+     * @Groups({"template_module","template_module:input", "template_module_component"})
      */
     private $moduleRange;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ModuleComponent", mappedBy="module")
-     * @Groups({"module", "quotation"})
+     * @ORM\OneToMany(targetEntity="App\Entity\TemplateModuleComponent", mappedBy="templateModule")
+     * @Groups({"template_module"})
      */
-    private $moduleComponents;
+    private $templateModuleComponents;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"module", "quotation", "module_component"})
+     * @Groups({"template_module","template_module:input", "template_module_component"})
      */
     protected $deletedAt;
 
     public function __construct()
     {
-        $this->reference = strtoupper(uniqid("mod-"));
+        $this->reference = strtoupper(uniqid("tpl-"));
         $this->projects = new ArrayCollection();
         $this->moduleComponents = new ArrayCollection();
     }
@@ -160,21 +153,6 @@ class Module
         return $this;
     }
 
-    /**
-     * @return Collection|Quotation
-     */
-    public function getQuotation()
-    {
-        return $this->quotation;
-    }
-
-    public function setQuotation(Quotation $quotation): self
-    {
-        $this->quotation = $quotation;
-
-        return $this;
-    }
-
     public function getReference(): ?string
     {
         return $this->reference;
@@ -200,43 +178,33 @@ class Module
     }
 
     /**
-     * @return Collection|ModuleComponent[]
+     * @return Collection|TemplateModuleComponent[]
      */
-    public function getModuleComponents(): Collection
+    public function getTemplateModuleComponents(): Collection
     {
-        return $this->moduleComponents;
+        return $this->templateModuleComponents;
     }
 
-    public function addModuleComponent(ModuleComponent $moduleComponent): self
+    public function addTemplateModuleComponent(TemplateModuleComponent $templateModuleComponent): self
     {
-        if (!$this->moduleComponents->contains($moduleComponent)) {
-            $this->moduleComponents[] = $moduleComponent;
-            $moduleComponent->setModules($this);
+        if (!$this->templateModuleComponents->contains($templateModuleComponent)) {
+            $this->templateModuleComponents[] = $templateModuleComponent;
+            $templateModuleComponent->setModules($this);
         }
 
         return $this;
     }
 
-    public function removeModuleComponent(ModuleComponent $moduleComponent): self
+    public function removeTemplateModuleComponent(TemplateModuleComponent $templateModuleComponent): self
     {
-        if ($this->moduleComponents->contains($moduleComponent)) {
-            $this->moduleComponents->removeElement($moduleComponent);
+        if ($this->templateModuleComponents->contains($templateModuleComponent)) {
+            $this->templateModuleComponents->removeElement($templateModuleComponent);
             // set the owning side to null (unless already changed)
-            if ($moduleComponent->getModules() === $this) {
-                $moduleComponent->setModules(null);
+            if ($templateModuleComponent->getModules() === $this) {
+                $templateModuleComponent->setModules(null);
             }
         }
 
         return $this;
-    }
-
-    public function getHTPrice(): ?float
-    {
-        $price = 0.00;
-        foreach($this->getModuleComponents() as $moduleComponent) {
-            $price += (float) $moduleComponent->getComponent()->getUnitPrice() * $moduleComponent->getQuantity();
-        }
-
-        return $price;
     }
 }

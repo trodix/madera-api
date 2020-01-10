@@ -30,13 +30,13 @@ class Range
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"range", "module", "project"})
+     * @Groups({"range", "module", "project", "template_module", "template_module_component"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=45)
-     * @Groups({"range", "range:input", "module", "project"})
+     * @Groups({"range", "range:input", "module", "project", "template_module", "template_module_component"})
      * @Assert\Type(type="string")
      * @Assert\Length(max=45)
      * @Assert\NotBlank
@@ -45,7 +45,7 @@ class Range
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
-     * @Groups({"range", "range:input", "module", "project"})
+     * @Groups({"range", "range:input", "module", "project", "template_module", "template_module_component"})
      * @Assert\Type(type="string")
      * @Assert\Length(max=45)
      */
@@ -59,7 +59,7 @@ class Range
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"range", "module", "project"})
+     * @Groups({"range", "module", "project", "template_module", "template_module_component"})
      */
     protected $deletedAt;
 
