@@ -20,25 +20,25 @@ class ModuleComponent
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"module_component", "module"})
+     * @Groups({"module_component", "module", "project"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Component", inversedBy="moduleComponents")
-     * @Groups({"module_component", "module_component:input", "module"})
+     * @Groups({"module_component", "module_component:input", "module", "project"})
      */
     private $component;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Module", inversedBy="moduleComponents")
-     * @Groups({"module_component", "module_component:input"})
+     * @Groups({"module_component", "module_component:input", "project"})
      */
     private $module;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"module_component", "module_component:input", "module"})
+     * @Groups({"module_component", "module_component:input", "module", "project"})
      * @Assert\Type(type="float")
      * @Assert\PositiveOrZero
      */
