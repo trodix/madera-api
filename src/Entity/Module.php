@@ -32,20 +32,20 @@ class Module
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"module", "quotation"})
+     * @Groups({"module", "quotation", "project", "module_component"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"quotation", "module"})
+     * @Groups({"quotation", "module", "project", "module_component"})
      * @ApiProperty(writable=false)
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=45)
-     * @Groups({"module", "module:input", "quotation"})
+     * @Groups({"module", "module:input", "quotation", "project", "module_component"})
      * @Assert\Type(type="string")
      * @Assert\Length(max=45)
      * @Assert\NotBlank
@@ -54,7 +54,7 @@ class Module
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"module", "module:input", "quotation"})
+     * @Groups({"module", "module:input", "quotation", "project", "module_component"})
      * @Assert\Type(type="float")
      * @Assert\PositiveOrZero
      */
@@ -62,7 +62,7 @@ class Module
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"module", "module:input", "quotation"})
+     * @Groups({"module", "module:input", "quotation", "project", "module_component"})
      * @Assert\Type(type="float")
      * @Assert\PositiveOrZero
      */
@@ -70,7 +70,7 @@ class Module
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
-     * @Groups({"module", "module:input", "quotation"})
+     * @Groups({"module", "module:input", "quotation", "project", "module_component"})
      * @Assert\Type(type="string")
      * @Assert\Length(max=15)
      */
@@ -84,7 +84,7 @@ class Module
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Range", inversedBy="modules")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"module", "module:input", "quotation"})
+     * @Groups({"module", "module:input", "quotation", "project", "module_component"})
      */
     private $moduleRange;
 
@@ -96,7 +96,7 @@ class Module
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"module", "quotation"})
+     * @Groups({"module", "quotation", "module_component"})
      */
     protected $deletedAt;
 

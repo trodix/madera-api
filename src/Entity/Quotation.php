@@ -55,7 +55,7 @@ class Quotation
      *     }
      * )
      */
-    private $state;
+    private $state = "WAITING";
 
     /**
      * @var \DateTime $created
