@@ -31,7 +31,7 @@ class Component
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"component", "project", "module_component", "template_module"})
+     * @Groups({"component", "project", "module_component", "template_module", "quotation"})
      */
     private $id;
 
