@@ -31,13 +31,13 @@ class Component
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"component", "module", "project", "module_component"})
+     * @Groups({"component", "project", "module_component"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=45)
-     * @Groups({"component", "component:input", "module", "project", "module_component"})
+     * @Groups({"component", "component:input", "quotation", "module", "project", "module_component"})
      * @Assert\Type(type="string")
      * @Assert\Length(max=45)
      * @Assert\NotBlank
@@ -46,7 +46,7 @@ class Component
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"component", "component:input", "module", "project", "module_component"})
+     * @Groups({"component", "component:input", "quotation", "module", "project", "module_component"})
      * @Assert\Type(type="float")
      * @Assert\PositiveOrZero
      */
@@ -54,7 +54,7 @@ class Component
 
     /**
      * @ORM\Column(type="string", length=45)
-     * @Groups({"component", "component:input", "module", "project", "module_component"})
+     * @Groups({"component", "component:input", "quotation", "module", "project", "module_component"})
      * @Assert\Type(type="string")
      * @Assert\Length(max=45)
      * @Assert\NotBlank
@@ -63,7 +63,7 @@ class Component
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"component", "component:input", "module", "project", "module_component"})
+     * @Groups({"component", "component:input", "quotation", "module", "project", "module_component"})
      * @ApiProperty(writable=false)
      */
     private $reference;
@@ -75,13 +75,13 @@ class Component
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ComponentSpecification", mappedBy="component")
-     * @Groups({"component", "component:input", "module", "project", "module_component"})
+     * @Groups({"component", "component:input", "quotation", "module", "project", "module_component"})
      */
     private $componentSpecifications;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"component", "module", "project", "module_component"})
+     * @Groups({"component", "quotation", "module", "project", "module_component"})
      */
     protected $deletedAt;
 

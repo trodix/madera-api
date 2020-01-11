@@ -17,7 +17,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\ExistsFilter;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\QuotationRepository")
  * @ApiResource(
- *      normalizationContext={"groups"={"quotation"}},
+ *      normalizationContext={"groups"={"quotation", "quotation_2"}},
  *      denormalizationContext={"groups"={"quotation:input"}}
  * )
  * @ApiFilter(ExistsFilter::class, properties={"deletedAt"})

@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -20,13 +22,13 @@ class ModuleComponent
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"module_component", "module", "project"})
+     * @Groups({"module_component", "module", "project", "quotation"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Component", inversedBy="moduleComponents")
-     * @Groups({"module_component", "module_component:input", "module", "project"})
+     * @Groups({"module_component", "module_component:input", "module", "project", "quotation"})
      */
     private $component;
 
@@ -38,7 +40,7 @@ class ModuleComponent
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"module_component", "module_component:input", "module", "project"})
+     * @Groups({"module_component", "module_component:input", "module", "project", "quotation"})
      * @Assert\Type(type="float")
      * @Assert\PositiveOrZero
      */

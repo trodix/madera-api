@@ -29,13 +29,13 @@ class Specification
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"specification", "component"})
+     * @Groups({"specification", "component", "quotation"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=45)
-     * @Groups({"specification", "specification:input", "component"})
+     * @Groups({"specification", "specification:input", "component", "quotation"})
      * @Assert\Type(type="string")
      * @Assert\Length(max=45)
      * @Assert\NotBlank
@@ -49,7 +49,7 @@ class Specification
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"specification", "component"})
+     * @Groups({"specification", "component", "quotation"})
      */
     protected $deletedAt;
 
