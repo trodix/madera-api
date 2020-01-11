@@ -20,7 +20,7 @@ class TemplateModuleComponent
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"template_module_component", "template_module"})
+     * @Groups({"template_module_component", "template_module", "template_module"})
      */
     private $id;
 

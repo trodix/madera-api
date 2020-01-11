@@ -20,7 +20,7 @@ class ComponentSpecification
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"component_specification", "component", "quotation"})
+     * @Groups({"component_specification", "component", "quotation", "template_module"})
      */
     private $id;
 
@@ -33,7 +33,7 @@ class ComponentSpecification
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
-     * @Groups({"component_specification", "component_specification:input", "component", "quotation"})
+     * @Groups({"component_specification", "component_specification:input", "component", "quotation", "template_module"})
      * @Assert\Type(type="string")
      * @Assert\Length(max=15)
      */
@@ -41,7 +41,7 @@ class ComponentSpecification
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"component_specification", "component_specification:input", "component", "quotation"})
+     * @Groups({"component_specification", "component_specification:input", "component", "quotation", "template_module"})
      * @Assert\Type(type="float")
      * @Assert\PositiveOrZero
      */
@@ -50,7 +50,7 @@ class ComponentSpecification
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Specification", inversedBy="componentSpecifications")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"component_specification", "component_specification:input", "component", "quotation"})
+     * @Groups({"component_specification", "component_specification:input", "component", "quotation", "template_module"})
      */
     private $specification;
 
