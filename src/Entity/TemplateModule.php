@@ -200,8 +200,8 @@ class TemplateModule
         if ($this->templateModuleComponents->contains($templateModuleComponent)) {
             $this->templateModuleComponents->removeElement($templateModuleComponent);
             // set the owning side to null (unless already changed)
-            if ($templateModuleComponent->getModules() === $this) {
-                $templateModuleComponent->setModules(null);
+            if ($templateModuleComponent->getModule() === $this) {
+                $templateModuleComponent->setModule(null);
             }
         }
 

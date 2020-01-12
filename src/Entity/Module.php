@@ -222,8 +222,8 @@ class Module
         if ($this->moduleComponents->contains($moduleComponent)) {
             $this->moduleComponents->removeElement($moduleComponent);
             // set the owning side to null (unless already changed)
-            if ($moduleComponent->getModules() === $this) {
-                $moduleComponent->setModules(null);
+            if ($moduleComponent->getModule() === $this) {
+                $moduleComponent->setModule(null);
             }
         }
 
