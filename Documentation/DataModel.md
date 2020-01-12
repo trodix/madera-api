@@ -4,72 +4,21 @@
 
 ### GET Customer
 
-```
+```json
 {
-    "id": 3,
-    "reference": "CU-5DFE812717EC5",
-    "lastname": "Dupont",
-    "firstname": "Francis",
-    "phone": "0669696969",
-    "email": "f.dupont@gmail.com",
-    "address": "4 Rue de la poupée qui tousse",
-    "zipcode": "21000",
-    "city": "Dijon",
+    "id": 2,
+    "reference": "CU-5E1B632FD6AFA",
+    "lastname": "Molotov",
+    "firstname": "Dimitri",
+    "phone": "0645253296",
+    "email": "dimitri.molotov@gmail.com",
+    "address": "4 Place du Soulié troué",
+    "zipcode": "89000",
+    "city": "Auxerre",
     "country": "France",
-    "projects": [
-        {
-            "id": 4,
-            "name": "Cabane normande",
-            "reference": "PR-5DFE8127A5742",
-            "createdAt": "2019-12-21T20:31:35+00:00",
-            "updatedAt": "2019-12-21T20:31:35+00:00",
-            "quotations": [
-                {
-                    "id": 4,
-                    "state": "WAITING",
-                    "createdAt": "2019-12-21T20:31:35+00:00",
-                    "updatedAt": "2019-12-21T20:31:35+00:00"
-                }
-            ],
-            "users": [
-                {
-                    "id": 4,
-                    "email": "john.doe@madera.com",
-                    "lastname": "Doe",
-                    "firstname": "John"
-                }
-            ],
-            "modules": [
-                "/v1/modules/7"
-            ]
-        },
-        {
-            "id": 5,
-            "name": "Bureaux boisés de campagne",
-            "reference": "PR-5DFE8127A76C0",
-            "createdAt": "2019-12-21T20:31:35+00:00",
-            "updatedAt": "2019-12-21T20:31:35+00:00",
-            "quotations": [
-                {
-                    "id": 5,
-                    "state": "WAITING",
-                    "createdAt": "2019-12-21T20:31:35+00:00",
-                    "updatedAt": "2019-12-21T20:31:35+00:00"
-                }
-            ],
-            "users": [
-                {
-                    "id": 4,
-                    "email": "john.doe@madera.com",
-                    "lastname": "Doe",
-                    "firstname": "John"
-                }
-            ],
-            "modules": []
-        }
-    ],
-    "createdAt": "2019-12-21T20:31:35+00:00",
-    "updatedAt": "2019-12-21T20:31:35+00:00"
+    "projects": [],
+    "createdAt": "2020-01-12T18:19:27+00:00",
+    "updatedAt": "2020-01-12T18:19:27+00:00"
 }
 ```
 
@@ -77,107 +26,35 @@
 
 ## GET Project
 
-```
+```json
 {
-    "id": 4,
-    "name": "Cabane normande",
-    "reference": "PR-5DFE8127A5742",
-    "travelCost": 139.95,
-    "vat": 20,
-    "customer": {
-        "id": 3,
-        "reference": "CU-5DFE812717EC5",
-        "lastname": "Dupont",
-        "firstname": "Francis",
-        "phone": "0669696969",
-        "email": "f.dupont@gmail.com",
-        "address": "4 Rue de la poupée qui tousse",
-        "zipcode": "21000",
-        "city": "Dijon",
-        "country": "France",
-        "createdAt": "2019-12-21T20:31:35+00:00",
-        "updatedAt": "2019-12-21T20:31:35+00:00"
-    },
-    "createdAt": "2019-12-21T20:31:35+00:00",
-    "updatedAt": "2019-12-21T20:31:35+00:00",
-    "quotations": [
-        {
-            "id": 4,
-            "state": "WAITING",
-            "createdAt": "2019-12-21T20:31:35+00:00",
-            "updatedAt": "2019-12-21T20:31:35+00:00"
-        }
-    ],
-    "users": [
-        {
-            "id": 4,
-            "email": "john.doe@madera.com",
-            "lastname": "Doe",
-            "firstname": "John"
-        }
-    ],
-    "modules": [
-        {
-            "id": 7,
-            "reference": "MOD-5DFE812725A14",
-            "name": "Mur intérieur - Placo - Laine de roche",
-            "usageUnit": "mm",
-            "moduleRange": {
-                "id": 3,
-                "name": "Standard"
-            },
-            "moduleComponents": [
-                "/v1/module_components/5"
-            ]
-        }
-    ]
-},
+    "id": 3,
+    "name": "Le domaine de Hagrid",
+    "reference": "PR-5E1B633077537",
+    "customer": {},
+    "createdAt": "2020-01-12T18:19:28+00:00",
+    "updatedAt": "2020-01-12T18:19:28+00:00",
+    "quotations": [],
+    "users": []
+}
 ```
 
 ## Quotation
 
 ### GET Quotation
 
-```
+```json
 {
-    "id": 4,
-    "state": "WAITING",
-    "createdAt": "2019-12-21T20:31:35+00:00",
-    "updatedAt": "2019-12-21T20:31:35+00:00",
-    "project": {
-        "id": 4,
-        "name": "Cabane normande",
-        "reference": "PR-5DFE8127A5742",
-        "travelCost": 139.95,
-        "vat": 20,
-        "customer": {
-            "id": 3,
-            "reference": "CU-5DFE812717EC5",
-            "lastname": "Dupont",
-            "firstname": "Francis",
-            "phone": "0669696969",
-            "email": "f.dupont@gmail.com",
-            "address": "4 Rue de la poupée qui tousse",
-            "zipcode": "21000",
-            "city": "Dijon",
-            "country": "France",
-            "createdAt": "2019-12-21T20:31:35+00:00",
-            "updatedAt": "2019-12-21T20:31:35+00:00"
-        },
-        "createdAt": "2019-12-21T20:31:35+00:00",
-        "updatedAt": "2019-12-21T20:31:35+00:00",
-        "users": [
-            {
-                "id": 4,
-                "email": "john.doe@madera.com",
-                "lastname": "Doe",
-                "firstname": "John"
-            }
-        ],
-        "modules": [
-            "/v1/modules/7"
-        ]
-    }
+    "id": 3,
+    "reference": "QT-5E1B63307B787",
+    "state": "VALIDATED",
+    "createdAt": "2020-01-12T18:19:28+00:00",
+    "updatedAt": "2020-01-12T18:20:08+00:00",
+    "project": {},
+    "modules": [],
+    "travelCost": 139.95,
+    "vat": 20,
+    "deletedAt": "2020-01-12T18:20:10+00:00"
 }
 ```
 
@@ -185,30 +62,14 @@
 
 ### GET User
 
-```
+```json
 {
-    "id": 4,
-    "email": "john.doe@madera.com",
-    "roles": [
-        "ROLE_COMMERCIAL",
-        "ROLE_USER"
-    ],
-    "lastname": "Doe",
-    "firstname": "John",
-    "sites": [
-        {
-            "id": 6,
-            "name": "Magasin de Mâcon",
-            "address": "Boulevard Edwige",
-            "zipcode": "71000",
-            "city": "Mâcon",
-            "country": "France"
-        }
-    ],
-    "projects": [
-        "/v1/projects/4",
-        "/v1/projects/5",
-        "/v1/projects/6"
-    ]
+    "id": 1,
+    "email": "admin@madera.com",
+    "roles": [],
+    "lastname": null,
+    "firstname": null,
+    "sites": [],
+    "projects": []
 }
 ```

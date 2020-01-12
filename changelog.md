@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.7] - 2020-01-12
+### Added
+- Autoremove an orphan module with a database listener
+
+## [0.4.6] - 2020-01-12
+### Added
+- Ajout de groupes de serialisation sur pour l'entité Quotation
+
+## [0.4.5] - 2020-01-11
+### Added
+- Ajout de groupes de serialisation sur pour l'entité Quotation
+
 ## [0.4.4] - 2020-01-10
 ### Added
 - Un module ne peut avoir maintenant qu'une seule quotation (ManyToOne)
