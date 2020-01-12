@@ -73,7 +73,7 @@ class Site
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"site", "site:input", "project"})
+     * @Groups({"site", "site:input", "project", "user"})
      * @Assert\Type(type="float")
      */
     private $labor;
