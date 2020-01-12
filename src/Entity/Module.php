@@ -90,7 +90,7 @@ class Module
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ModuleComponent", mappedBy="module")
-     * @Groups({"module", "quotation"})
+     * @Groups({"module", "module:input", "quotation"})
      */
     private $moduleComponents;
 
