@@ -2,6 +2,7 @@
 
 namespace App\EventListener;
 
+use App\Entity\Module;
 use App\Service\Mailing;
 use Doctrine\ORM\Events;
 use App\Entity\Quotation;
@@ -57,6 +58,7 @@ class DatabaseActivitySubscriber implements EventSubscriber
     public function postUpdate(LifecycleEventArgs $args)
     {
         $this->logActivity('update', $args);
+        $this->removeUnusedModule($args);
     }
 
 
@@ -110,6 +112,27 @@ class DatabaseActivitySubscriber implements EventSubscriber
         }
 
         $this->mailing->sendQuotationEmail($entity);
+    }
+
+    public function removeUnusedModule($args)
+    {
+        $entity = $args->getObject();
+
+        if (!$entity instanceof Module) {
+            return;
+        }
+
+        $em = $args->getEntityManager();
+
+        if($entity->getQuotation() === null) {
+            $moduleComponents = $entity->getModuleComponents();
+            foreach($moduleComponents as $moduleComponent) {
+                $em->remove($moduleComponent);
+            }
+            $em->flush();
+            $em->remove($entity);
+            $em->flush();
+        }
     }
 
 }

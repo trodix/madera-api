@@ -48,6 +48,9 @@ class QuotationFixtures extends Fixture implements DependentFixtureInterface
             ->addModule($this->getReference(ModuleFixtures::MODULE_MUR_INTERIEUR_1_REFERENCE))
             ->addModule($this->getReference(ModuleFixtures::MODULE_MUR_INTERIEUR_2_REFERENCE))
             ->addModule($this->getReference(ModuleFixtures::MODULE_MUR_INTERIEUR_3_REFERENCE))
+            ->addModule($this->getReference(ModuleFixtures::MODULE_MUR_INTERIEUR_4_REFERENCE))
+            ->addModule($this->getReference(ModuleFixtures::MODULE_MUR_INTERIEUR_5_REFERENCE))
+            ->addModule($this->getReference(ModuleFixtures::MODULE_MUR_INTERIEUR_6_REFERENCE))
             ->setTravelCost(139.95)
             ->setVat(20.00)
         ;
