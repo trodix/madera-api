@@ -49,6 +49,13 @@ class ComponentSpecificationFixtures extends Fixture implements DependentFixture
     public const COMPONENT_SPECIFICATION_34_REFERENCE = 'component-specification-34';
     public const COMPONENT_SPECIFICATION_35_REFERENCE = 'component-specification-35';
     public const COMPONENT_SPECIFICATION_36_REFERENCE = 'component-specification-36';
+    public const COMPONENT_SPECIFICATION_37_REFERENCE = 'component-specification-37';
+    public const COMPONENT_SPECIFICATION_38_REFERENCE = 'component-specification-38';
+    public const COMPONENT_SPECIFICATION_39_REFERENCE = 'component-specification-39';
+    public const COMPONENT_SPECIFICATION_40_REFERENCE = 'component-specification-40';
+    public const COMPONENT_SPECIFICATION_41_REFERENCE = 'component-specification-41';
+    public const COMPONENT_SPECIFICATION_42_REFERENCE = 'component-specification-42';
+    public const COMPONENT_SPECIFICATION_43_REFERENCE = 'component-specification-43';
 
     public function load(ObjectManager $manager)
     {
@@ -435,6 +442,83 @@ class ComponentSpecificationFixtures extends Fixture implements DependentFixture
 
         $manager->persist($componentSpecification);
         $this->addReference(self::COMPONENT_SPECIFICATION_36_REFERENCE, $componentSpecification);
+
+        $componentSpecification = new ComponentSpecification();
+        $componentSpecification
+            ->setMeasureUnit("")
+            ->setMeasureValue("16")
+            ->setComponent($this->getReference(ComponentFixtures::COMPONENT_37_REFERENCE))
+            ->setSpecification($this->getReference(SpecificationFixtures::SPECIFICATION_6_REFERENCE))
+        ;
+
+        $manager->persist($componentSpecification);
+        $this->addReference(self::COMPONENT_SPECIFICATION_37_REFERENCE, $componentSpecification);
+
+        $componentSpecification = new ComponentSpecification();
+        $componentSpecification
+            ->setMeasureUnit("")
+            ->setMeasureValue("16")
+            ->setComponent($this->getReference(ComponentFixtures::COMPONENT_38_REFERENCE))
+            ->setSpecification($this->getReference(SpecificationFixtures::SPECIFICATION_6_REFERENCE))
+        ;
+
+        $manager->persist($componentSpecification);
+        $this->addReference(self::COMPONENT_SPECIFICATION_38_REFERENCE, $componentSpecification);
+
+        $componentSpecification = new ComponentSpecification();
+        $componentSpecification
+            ->setMeasureUnit("")
+            ->setMeasureValue("16")
+            ->setComponent($this->getReference(ComponentFixtures::COMPONENT_39_REFERENCE))
+            ->setSpecification($this->getReference(SpecificationFixtures::SPECIFICATION_6_REFERENCE))
+        ;
+
+        $manager->persist($componentSpecification);
+        $this->addReference(self::COMPONENT_SPECIFICATION_39_REFERENCE, $componentSpecification);
+
+        $componentSpecification = new ComponentSpecification();
+        $componentSpecification
+            ->setMeasureUnit("")
+            ->setMeasureValue("16")
+            ->setComponent($this->getReference(ComponentFixtures::COMPONENT_40_REFERENCE))
+            ->setSpecification($this->getReference(SpecificationFixtures::SPECIFICATION_6_REFERENCE))
+        ;
+
+        $manager->persist($componentSpecification);
+        $this->addReference(self::COMPONENT_SPECIFICATION_40_REFERENCE, $componentSpecification);
+
+        $componentSpecification = new ComponentSpecification();
+        $componentSpecification
+            ->setMeasureUnit("m2")
+            ->setMeasureValue("16")
+            ->setComponent($this->getReference(ComponentFixtures::COMPONENT_41_REFERENCE))
+            ->setSpecification($this->getReference(SpecificationFixtures::SPECIFICATION_6_REFERENCE))
+        ;
+
+        $manager->persist($componentSpecification);
+        $this->addReference(self::COMPONENT_SPECIFICATION_41_REFERENCE, $componentSpecification);
+
+        $componentSpecification = new ComponentSpecification();
+        $componentSpecification
+            ->setMeasureUnit("m2")
+            ->setMeasureValue("16")
+            ->setComponent($this->getReference(ComponentFixtures::COMPONENT_42_REFERENCE))
+            ->setSpecification($this->getReference(SpecificationFixtures::SPECIFICATION_6_REFERENCE))
+        ;
+
+        $manager->persist($componentSpecification);
+        $this->addReference(self::COMPONENT_SPECIFICATION_42_REFERENCE, $componentSpecification);
+
+        $componentSpecification = new ComponentSpecification();
+        $componentSpecification
+            ->setMeasureUnit("m2")
+            ->setMeasureValue("16")
+            ->setComponent($this->getReference(ComponentFixtures::COMPONENT_43_REFERENCE))
+            ->setSpecification($this->getReference(SpecificationFixtures::SPECIFICATION_6_REFERENCE))
+        ;
+
+        $manager->persist($componentSpecification);
+        $this->addReference(self::COMPONENT_SPECIFICATION_43_REFERENCE, $componentSpecification);
 
         /////////////////////////////////
         $manager->flush();

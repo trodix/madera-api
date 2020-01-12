@@ -19,7 +19,7 @@ class CustomerFixtures extends Fixture
             // ->setReference("C000001") // Auto-generated bu uniqid
             ->setLastName("Dupont")
             ->setFirstName("Francis")
-            ->setPhone("0669696969")
+            ->setPhone("0601020304")
             ->setEmail("f.dupont@gmail.com")
             ->setAddress("4 Rue de la poupée qui tousse")
             ->setCity("Dijon")
@@ -56,7 +56,7 @@ class CustomerFixtures extends Fixture
             ->setLastName("Hyst")
             ->setFirstName("Eric")
             ->setCompanyName("CESI Dijon")
-            ->setPhone("0669696969")
+            ->setPhone("0302030405")
             ->setEmail("hyst.eric@gmail.com")
             ->setAddress("4 Rue de la jolie flamme")
             ->setCity("Dijon")
