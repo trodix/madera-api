@@ -168,7 +168,7 @@ class Module
         return $this->quotation;
     }
 
-    public function setQuotation(Quotation $quotation): self
+    public function setQuotation($quotation): self
     {
         $this->quotation = $quotation;
 
@@ -226,6 +226,13 @@ class Module
                 $moduleComponent->setModule(null);
             }
         }
+
+        return $this;
+    }
+
+    public function removeQuotation(Quotation $quotation): self
+    {
+        $this->setQuotation(null);
 
         return $this;
     }
